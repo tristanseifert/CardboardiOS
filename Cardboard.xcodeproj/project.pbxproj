@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DA1A6A977C00DC4726 /* SQUCameraCapturer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DA1A6A977C00DC4726 /* SQUCameraCapturer.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6A6F03DD1A6A977C00DC4726 /* SQUCameraCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F03DB1A6A977C00DC4726 /* SQUCameraCapturer.m */; };
 		6A6F03DF1A6AA27C00DC4726 /* SQURenderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DE1A6AA27C00DC4726 /* SQURenderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A6F03E21A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F03E11A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m */; };
@@ -39,16 +39,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6A6F03D81A6A910300DC4726 /* Copy Resources */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
-			);
-			name = "Copy Resources";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6ACA7A4E1A6A461F0060B316 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -266,8 +256,8 @@
 				6ACA7A371A6A461F0060B316 /* CardboardKit.h in Headers */,
 				6ACA7A551A6A466C0060B316 /* SQUCardboardKit.h in Headers */,
 				6A6F03DF1A6AA27C00DC4726 /* SQURenderDelegate.h in Headers */,
-				6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */,
 				6ACA7A5A1A6A4A0B0060B316 /* SQUGLController.h in Headers */,
+				6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,7 +293,6 @@
 				6ACA7A2D1A6A461F0060B316 /* Sources */,
 				6ACA7A2E1A6A461F0060B316 /* Frameworks */,
 				6ACA7A2F1A6A461F0060B316 /* Headers */,
-				6A6F03D81A6A910300DC4726 /* Copy Resources */,
 				6ACA7A301A6A461F0060B316 /* Resources */,
 			);
 			buildRules = (
@@ -531,6 +520,7 @@
 			baseConfigurationReference = 31766461CF7711BED568A3D8 /* Pods-Cardboard.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = Cardboard/PrefixHeader.pch;
@@ -546,6 +536,7 @@
 			baseConfigurationReference = FC49DE83CC7936B6A085A50D /* Pods-Cardboard.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = Cardboard/PrefixHeader.pch;
