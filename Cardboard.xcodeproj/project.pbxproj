@@ -8,38 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		6ACA79FC1A6A2B350060B316 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA79FB1A6A2B350060B316 /* main.m */; };
-		6ACA79FF1A6A2B350060B316 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA79FE1A6A2B350060B316 /* AppDelegate.m */; };
-		6ACA7A021A6A2B350060B316 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A011A6A2B350060B316 /* ViewController.m */; };
-		6ACA7A051A6A2B350060B316 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6ACA7A031A6A2B350060B316 /* Main.storyboard */; };
 		6ACA7A071A6A2B350060B316 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ACA7A061A6A2B350060B316 /* Images.xcassets */; };
-		6ACA7A0A1A6A2B350060B316 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ACA7A081A6A2B350060B316 /* LaunchScreen.xib */; };
-		6ACA7A161A6A2B350060B316 /* CardboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A151A6A2B350060B316 /* CardboardTests.m */; };
+		6ACA7A261A6A2CD70060B316 /* SQUAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A251A6A2CD70060B316 /* SQUAppDelegate.m */; };
+		6ACA7A2C1A6A2EF70060B316 /* SQUGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A2B1A6A2EF70060B316 /* SQUGLController.m */; };
+		A0C86FAD07A954B28F38FCA6 /* libPods-Cardboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC840003F6D582600D6F656 /* libPods-Cardboard.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		6ACA7A101A6A2B350060B316 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6ACA79EE1A6A2B350060B316 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6ACA79F51A6A2B350060B316;
-			remoteInfo = Cardboard;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		31766461CF7711BED568A3D8 /* Pods-Cardboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cardboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cardboard/Pods-Cardboard.debug.xcconfig"; sourceTree = "<group>"; };
+		5AC840003F6D582600D6F656 /* libPods-Cardboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cardboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ACA79F61A6A2B350060B316 /* Cardboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cardboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ACA79FA1A6A2B350060B316 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6ACA79FB1A6A2B350060B316 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6ACA79FD1A6A2B350060B316 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		6ACA79FE1A6A2B350060B316 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6ACA7A001A6A2B350060B316 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6ACA7A011A6A2B350060B316 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		6ACA7A041A6A2B350060B316 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6ACA7A061A6A2B350060B316 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		6ACA7A091A6A2B350060B316 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		6ACA7A0F1A6A2B350060B316 /* CardboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6ACA7A141A6A2B350060B316 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6ACA7A151A6A2B350060B316 /* CardboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardboardTests.m; sourceTree = "<group>"; };
+		6ACA7A061A6A2B350060B316 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Cardboard/Images.xcassets; sourceTree = "<group>"; };
+		6ACA7A241A6A2CD70060B316 /* SQUAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUAppDelegate.h; sourceTree = "<group>"; };
+		6ACA7A251A6A2CD70060B316 /* SQUAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUAppDelegate.m; sourceTree = "<group>"; };
+		6ACA7A281A6A2E590060B316 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		6ACA7A2A1A6A2EF70060B316 /* SQUGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUGLController.h; sourceTree = "<group>"; };
+		6ACA7A2B1A6A2EF70060B316 /* SQUGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUGLController.m; sourceTree = "<group>"; };
+		FC49DE83CC7936B6A085A50D /* Pods-Cardboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cardboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cardboard/Pods-Cardboard.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,25 +34,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6ACA7A0C1A6A2B350060B316 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				A0C86FAD07A954B28F38FCA6 /* libPods-Cardboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46F5CF53744BEB0546034E43 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				31766461CF7711BED568A3D8 /* Pods-Cardboard.debug.xcconfig */,
+				FC49DE83CC7936B6A085A50D /* Pods-Cardboard.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6ACA79ED1A6A2B350060B316 = {
 			isa = PBXGroup;
 			children = (
-				6ACA79F81A6A2B350060B316 /* Cardboard */,
-				6ACA7A121A6A2B350060B316 /* CardboardTests */,
+				6ACA7A291A6A2EE20060B316 /* GL Rendering */,
+				6ACA7A231A6A2CC20060B316 /* App Delegate */,
+				6ACA79F91A6A2B350060B316 /* Supporting Files */,
+				6ACA7A221A6A2CB00060B316 /* Resources */,
 				6ACA79F71A6A2B350060B316 /* Products */,
+				46F5CF53744BEB0546034E43 /* Pods */,
+				E7453ECFD21C2CC925C3893D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,24 +67,8 @@
 			isa = PBXGroup;
 			children = (
 				6ACA79F61A6A2B350060B316 /* Cardboard.app */,
-				6ACA7A0F1A6A2B350060B316 /* CardboardTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		6ACA79F81A6A2B350060B316 /* Cardboard */ = {
-			isa = PBXGroup;
-			children = (
-				6ACA79FD1A6A2B350060B316 /* AppDelegate.h */,
-				6ACA79FE1A6A2B350060B316 /* AppDelegate.m */,
-				6ACA7A001A6A2B350060B316 /* ViewController.h */,
-				6ACA7A011A6A2B350060B316 /* ViewController.m */,
-				6ACA7A031A6A2B350060B316 /* Main.storyboard */,
-				6ACA7A061A6A2B350060B316 /* Images.xcassets */,
-				6ACA7A081A6A2B350060B316 /* LaunchScreen.xib */,
-				6ACA79F91A6A2B350060B316 /* Supporting Files */,
-			);
-			path = Cardboard;
 			sourceTree = "<group>";
 		};
 		6ACA79F91A6A2B350060B316 /* Supporting Files */ = {
@@ -98,25 +76,46 @@
 			children = (
 				6ACA79FA1A6A2B350060B316 /* Info.plist */,
 				6ACA79FB1A6A2B350060B316 /* main.m */,
+				6ACA7A281A6A2E590060B316 /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
+			path = Cardboard;
 			sourceTree = "<group>";
 		};
-		6ACA7A121A6A2B350060B316 /* CardboardTests */ = {
+		6ACA7A221A6A2CB00060B316 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6ACA7A151A6A2B350060B316 /* CardboardTests.m */,
-				6ACA7A131A6A2B350060B316 /* Supporting Files */,
+				6ACA7A061A6A2B350060B316 /* Images.xcassets */,
 			);
-			path = CardboardTests;
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		6ACA7A131A6A2B350060B316 /* Supporting Files */ = {
+		6ACA7A231A6A2CC20060B316 /* App Delegate */ = {
 			isa = PBXGroup;
 			children = (
-				6ACA7A141A6A2B350060B316 /* Info.plist */,
+				6ACA7A241A6A2CD70060B316 /* SQUAppDelegate.h */,
+				6ACA7A251A6A2CD70060B316 /* SQUAppDelegate.m */,
 			);
-			name = "Supporting Files";
+			name = "App Delegate";
+			path = Cardboard;
+			sourceTree = "<group>";
+		};
+		6ACA7A291A6A2EE20060B316 /* GL Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				6ACA7A2A1A6A2EF70060B316 /* SQUGLController.h */,
+				6ACA7A2B1A6A2EF70060B316 /* SQUGLController.m */,
+			);
+			name = "GL Rendering";
+			path = Cardboard;
+			sourceTree = "<group>";
+		};
+		E7453ECFD21C2CC925C3893D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5AC840003F6D582600D6F656 /* libPods-Cardboard.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,9 +125,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6ACA7A191A6A2B350060B316 /* Build configuration list for PBXNativeTarget "Cardboard" */;
 			buildPhases = (
+				35CB587D60A3E1A27757A3E5 /* Check Pods Manifest.lock */,
 				6ACA79F21A6A2B350060B316 /* Sources */,
+				6ACA7A211A6A2BB20060B316 /* Increment Bundle Version */,
 				6ACA79F31A6A2B350060B316 /* Frameworks */,
 				6ACA79F41A6A2B350060B316 /* Resources */,
+				AD3D7F42ADC1FE655A3C247E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -138,24 +140,6 @@
 			productName = Cardboard;
 			productReference = 6ACA79F61A6A2B350060B316 /* Cardboard.app */;
 			productType = "com.apple.product-type.application";
-		};
-		6ACA7A0E1A6A2B350060B316 /* CardboardTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6ACA7A1C1A6A2B350060B316 /* Build configuration list for PBXNativeTarget "CardboardTests" */;
-			buildPhases = (
-				6ACA7A0B1A6A2B350060B316 /* Sources */,
-				6ACA7A0C1A6A2B350060B316 /* Frameworks */,
-				6ACA7A0D1A6A2B350060B316 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6ACA7A111A6A2B350060B316 /* PBXTargetDependency */,
-			);
-			name = CardboardTests;
-			productName = CardboardTests;
-			productReference = 6ACA7A0F1A6A2B350060B316 /* CardboardTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -168,10 +152,7 @@
 				TargetAttributes = {
 					6ACA79F51A6A2B350060B316 = {
 						CreatedOnToolsVersion = 6.1.1;
-					};
-					6ACA7A0E1A6A2B350060B316 = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = 6ACA79F51A6A2B350060B316;
+						DevelopmentTeam = CE6EK52VST;
 					};
 				};
 			};
@@ -189,7 +170,6 @@
 			projectRoot = "";
 			targets = (
 				6ACA79F51A6A2B350060B316 /* Cardboard */,
-				6ACA7A0E1A6A2B350060B316 /* CardboardTests */,
 			);
 		};
 /* End PBXProject section */
@@ -199,68 +179,71 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6ACA7A051A6A2B350060B316 /* Main.storyboard in Resources */,
-				6ACA7A0A1A6A2B350060B316 /* LaunchScreen.xib in Resources */,
 				6ACA7A071A6A2B350060B316 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6ACA7A0D1A6A2B350060B316 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		35CB587D60A3E1A27757A3E5 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
-/* End PBXResourcesBuildPhase section */
+		6ACA7A211A6A2BB20060B316 /* Increment Bundle Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Bundle Version";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$(($bN))\nbN=$(($bN + 1))\nbN=$(printf \"%i\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"";
+		};
+		AD3D7F42ADC1FE655A3C247E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Cardboard/Pods-Cardboard-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6ACA79F21A6A2B350060B316 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6ACA7A021A6A2B350060B316 /* ViewController.m in Sources */,
-				6ACA79FF1A6A2B350060B316 /* AppDelegate.m in Sources */,
+				6ACA7A261A6A2CD70060B316 /* SQUAppDelegate.m in Sources */,
 				6ACA79FC1A6A2B350060B316 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6ACA7A0B1A6A2B350060B316 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6ACA7A161A6A2B350060B316 /* CardboardTests.m in Sources */,
+				6ACA7A2C1A6A2EF70060B316 /* SQUGLController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6ACA7A111A6A2B350060B316 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6ACA79F51A6A2B350060B316 /* Cardboard */;
-			targetProxy = 6ACA7A101A6A2B350060B316 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		6ACA7A031A6A2B350060B316 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6ACA7A041A6A2B350060B316 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		6ACA7A081A6A2B350060B316 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6ACA7A091A6A2B350060B316 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6ACA7A171A6A2B350060B316 /* Debug */ = {
@@ -297,7 +280,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -332,7 +315,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -341,55 +324,31 @@
 		};
 		6ACA7A1A1A6A2B350060B316 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31766461CF7711BED568A3D8 /* Pods-Cardboard.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREFIX_HEADER = Cardboard/PrefixHeader.pch;
 				INFOPLIST_FILE = Cardboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		6ACA7A1B1A6A2B350060B316 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC49DE83CC7936B6A085A50D /* Pods-Cardboard.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREFIX_HEADER = Cardboard/PrefixHeader.pch;
 				INFOPLIST_FILE = Cardboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		6ACA7A1D1A6A2B350060B316 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = CardboardTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cardboard.app/Cardboard";
-			};
-			name = Debug;
-		};
-		6ACA7A1E1A6A2B350060B316 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = CardboardTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cardboard.app/Cardboard";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -412,14 +371,7 @@
 				6ACA7A1B1A6A2B350060B316 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		6ACA7A1C1A6A2B350060B316 /* Build configuration list for PBXNativeTarget "CardboardTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6ACA7A1D1A6A2B350060B316 /* Debug */,
-				6ACA7A1E1A6A2B350060B316 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
