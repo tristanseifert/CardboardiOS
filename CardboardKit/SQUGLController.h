@@ -7,7 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SceneKit/SceneKit.h>
 
-@interface SQUGLController : UIViewController
+@class SQUCameraCapturer;
+
+@interface SQUGLController : UIViewController <SCNSceneRendererDelegate> {
+	SCNScene *_scene;
+	
+	SCNView *_renderViewLeft;
+	SCNView *_renderViewRight;
+	
+	SCNNode *_cam_l, *_cam_r;
+}
+
+@property (nonatomic, readonly) SQUCameraCapturer *camera;
+
+@property (nonatomic, readwrite) CGFloat offset;
 
 @end

@@ -17,6 +17,11 @@
 		6ACA7A561A6A466C0060B316 /* SQUCardboardKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A541A6A466C0060B316 /* SQUCardboardKit.m */; };
 		6ACA7A5A1A6A4A0B0060B316 /* SQUGLController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ACA7A581A6A4A0B0060B316 /* SQUGLController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6ACA7A5B1A6A4A0B0060B316 /* SQUGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A591A6A4A0B0060B316 /* SQUGLController.m */; };
+		6ACA7A621A6A4C7C0060B316 /* SQUCameraCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ACA7A601A6A4C7C0060B316 /* SQUCameraCapturer.h */; };
+		6ACA7A631A6A4C7C0060B316 /* SQUCameraCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A611A6A4C7C0060B316 /* SQUCameraCapturer.m */; };
+		6ACA7A651A6A4CFC0060B316 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACA7A641A6A4CFC0060B316 /* AVFoundation.framework */; };
+		6ACA7A671A6A4D300060B316 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACA7A661A6A4D300060B316 /* UIKit.framework */; };
+		6ACA7A691A6A50A50060B316 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACA7A681A6A50A50060B316 /* SceneKit.framework */; };
 		A0C86FAD07A954B28F38FCA6 /* libPods-Cardboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC840003F6D582600D6F656 /* libPods-Cardboard.a */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +66,11 @@
 		6ACA7A541A6A466C0060B316 /* SQUCardboardKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUCardboardKit.m; sourceTree = "<group>"; };
 		6ACA7A581A6A4A0B0060B316 /* SQUGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUGLController.h; sourceTree = "<group>"; };
 		6ACA7A591A6A4A0B0060B316 /* SQUGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUGLController.m; sourceTree = "<group>"; };
+		6ACA7A601A6A4C7C0060B316 /* SQUCameraCapturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUCameraCapturer.h; sourceTree = "<group>"; };
+		6ACA7A611A6A4C7C0060B316 /* SQUCameraCapturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUCameraCapturer.m; sourceTree = "<group>"; };
+		6ACA7A641A6A4CFC0060B316 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		6ACA7A661A6A4D300060B316 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6ACA7A681A6A50A50060B316 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		FC49DE83CC7936B6A085A50D /* Pods-Cardboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cardboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cardboard/Pods-Cardboard.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +88,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ACA7A691A6A50A50060B316 /* SceneKit.framework in Frameworks */,
+				6ACA7A671A6A4D300060B316 /* UIKit.framework in Frameworks */,
+				6ACA7A651A6A4CFC0060B316 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +166,7 @@
 		6ACA7A331A6A461F0060B316 /* CardboardKit */ = {
 			isa = PBXGroup;
 			children = (
+				6ACA7A5D1A6A4BD70060B316 /* Image Routing */,
 				6ACA7A571A6A4A010060B316 /* Rendering */,
 				6ACA7A5C1A6A4A0F0060B316 /* Motion */,
 				6ACA7A341A6A461F0060B316 /* Supporting Files */,
@@ -198,9 +212,21 @@
 			name = Motion;
 			sourceTree = "<group>";
 		};
+		6ACA7A5D1A6A4BD70060B316 /* Image Routing */ = {
+			isa = PBXGroup;
+			children = (
+				6ACA7A601A6A4C7C0060B316 /* SQUCameraCapturer.h */,
+				6ACA7A611A6A4C7C0060B316 /* SQUCameraCapturer.m */,
+			);
+			name = "Image Routing";
+			sourceTree = "<group>";
+		};
 		E7453ECFD21C2CC925C3893D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6ACA7A681A6A50A50060B316 /* SceneKit.framework */,
+				6ACA7A661A6A4D300060B316 /* UIKit.framework */,
+				6ACA7A641A6A4CFC0060B316 /* AVFoundation.framework */,
 				5AC840003F6D582600D6F656 /* libPods-Cardboard.a */,
 			);
 			name = Frameworks;
@@ -214,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ACA7A551A6A466C0060B316 /* SQUCardboardKit.h in Headers */,
+				6ACA7A621A6A4C7C0060B316 /* SQUCameraCapturer.h in Headers */,
 				6ACA7A371A6A461F0060B316 /* CardboardKit.h in Headers */,
 				6ACA7A5A1A6A4A0B0060B316 /* SQUGLController.h in Headers */,
 			);
@@ -379,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ACA7A631A6A4C7C0060B316 /* SQUCameraCapturer.m in Sources */,
 				6ACA7A5B1A6A4A0B0060B316 /* SQUGLController.m in Sources */,
 				6ACA7A561A6A466C0060B316 /* SQUCardboardKit.m in Sources */,
 			);
