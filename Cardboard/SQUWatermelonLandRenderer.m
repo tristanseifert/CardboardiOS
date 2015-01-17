@@ -27,7 +27,7 @@
 	box.name = kNodeNameCube;
 	
 	SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
-	boxNode.position = SCNVector3Make(0, 0, 0);
+	boxNode.position = SCNVector3Make(0, 0, -40);
 	
 	
 	// load the watermelon texture
@@ -50,15 +50,15 @@
 	boxRotation.repeatCount = INFINITY;
 	boxRotation.duration = 2.0;
 	
-	[boxNode addAnimation:boxRotation
-				   forKey:@"RotateCubular"];
+	//[boxNode addAnimation:boxRotation
+	//			   forKey:@"RotateCubular"];
 	
 	// create a sphere
 	SCNSphere *sphere = [SCNSphere sphereWithRadius:5];
 	sphere.name = kNodeNameSphere;
 	
 	SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphere];
-	sphereNode.position = SCNVector3Make(-5, 13, -8);
+	sphereNode.position = SCNVector3Make(-5, 13, -38);
 	sphere.materials = @[watermelonTexture];
 	
 	[scene.rootNode addChildNode:sphereNode];

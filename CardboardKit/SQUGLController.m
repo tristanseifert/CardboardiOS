@@ -169,7 +169,7 @@
 	_cam_l = [SCNNode node];
 	_cam_l.name = kNodeNameCameraLeft;
 	_cam_l.camera = [SCNCamera camera];
-	_cam_l.position = SCNVector3Make(-_offset, 0, 65);
+	_cam_l.position = SCNVector3Make(-_offset, 0, 0);
 	
 	[_scene.rootNode addChildNode:_cam_l];
 	
@@ -177,7 +177,7 @@
 	_cam_r = [SCNNode node];
 	_cam_r.name = kNodeNameCameraRight;
 	_cam_r.camera = [SCNCamera camera];
-	_cam_r.position = SCNVector3Make(_offset, 0, 65);
+	_cam_r.position = SCNVector3Make(_offset, 0, 0);
 	
 	[_scene.rootNode addChildNode:_cam_r];
 	
@@ -235,8 +235,8 @@
  */
 - (void)renderer:(id <SCNSceneRenderer>) aRenderer didRenderScene:(SCNScene *) scene atTime:(NSTimeInterval) time {
 	// update camera
-	_cam_l.position = SCNVector3Make(-_offset, 0, 30);
-	_cam_r.position = SCNVector3Make(_offset, 0, 30);
+	_cam_l.position = SCNVector3Make(-_offset, 0, 0);
+	_cam_r.position = SCNVector3Make(_offset, 0, 0);
 }
 
 /**
@@ -255,8 +255,10 @@
  */
 - (void) updateCameraPositon:(SCNVector3) angles {
 	// camera things
-	_cam_l.position = SCNVector3Make(-_offset, 0, 30);
-	_cam_r.position = SCNVector3Make(_offset, 0, 30);
+	/*_cam_l.position = SCNVector3Make(-_offset, 0, 30);
+	_cam_r.position = SCNVector3Make(_offset, 0, 30);*/
+    _cam_l.position = SCNVector3Make(-_offset, 0, 0);
+    _cam_r.position = SCNVector3Make(_offset, 0, 0);
 	
 	// set rotations
 /*	_cam_l.transform = SCNMatrix4Translate(SCNMatrix4Identity, -_offset, 0, 30);

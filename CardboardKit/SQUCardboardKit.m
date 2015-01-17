@@ -111,7 +111,7 @@ static SQUCardboardKit *sharedInstance = nil;
     }
 	
 	// this seems like a good time to do this !??!?!?//!/1//111
-	_cameraAngle = SCNVector3Zero;
+	_cameraAngle = SCNVector3Make(-M_PI_2, 0, 0);
 }
 
 -(void) observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context{
@@ -120,7 +120,7 @@ static SQUCardboardKit *sharedInstance = nil;
     }
     if([keyPath isEqualToString:@"motionData"]){ //update the position
 		float yaw = (_motionData.attitude.yaw - _motionDataLastVal.attitude.yaw);
-		float roll = (_motionData.attitude.roll - _motionDataLastVal.attitude.roll );
+		float roll = -(_motionData.attitude.roll - _motionDataLastVal.attitude.roll );
 		float pitch = (_motionData.attitude.pitch - _motionDataLastVal.attitude.pitch );
 		
         float accelX = (_motionData.userAcceleration.x - _motionDataLastVal.userAcceleration.x );
@@ -144,9 +144,9 @@ static SQUCardboardKit *sharedInstance = nil;
 		
 		// quadrangulum !!!
 		[self willChangeValueForKey:@"cameraAngle"];
-		_cameraAngle.x += pitch;
+		_cameraAngle.x += roll;
 		_cameraAngle.y += yaw;
-		_cameraAngle.z += roll;
+		_cameraAngle.z += pitch;
 		
 //		_cameraAngle = SCNVector3Make(pitch, yaw, roll);
 		[self didChangeValueForKey:@"cameraAngle"];
