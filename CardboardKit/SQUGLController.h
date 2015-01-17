@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <SceneKit/SceneKit.h>
 
-@class SQUCameraCapturer;
-
 @interface SQUGLController : UIViewController <SCNSceneRendererDelegate> {
 	SCNScene *_scene;
 	
@@ -20,12 +18,11 @@
 	SCNNode *_cam_l, *_cam_r;
 	
 	BOOL _initialised;
+	BOOL _sceneInitialised;
 }
 
 @property (nonatomic, readonly) CGFloat oldBrightness;
 @property (nonatomic, readwrite) CGFloat offset;
-
-@property (nonatomic, readonly) SQUCameraCapturer *camera;
 
 @property (nonatomic, readwrite, strong) id<SQURenderDelegate> renderisor;
 

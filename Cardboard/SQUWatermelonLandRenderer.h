@@ -11,7 +11,7 @@
 #import "CardboardKit.h"
 
 @interface SQUWatermelonLandRenderer : NSObject <SQURenderDelegate> {
-	
+	SQUCameraCapturer *_camera;
 }
 
 @end

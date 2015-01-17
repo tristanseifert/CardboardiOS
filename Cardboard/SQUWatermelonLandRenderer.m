@@ -17,6 +17,11 @@
  * initialises the nodes to be added to the scene
  */
 - (void) addNodesToScene:(SCNScene *) scene {
+
+	// create the camera
+	_camera = [[SQUCameraCapturer alloc] init];
+	[_camera requestPermission];
+	[_camera beginCapture];
 	
 	// create a single cube
 	CGFloat boxSide = 10.0;
@@ -56,9 +61,9 @@
 	
 	// create a sphere
 	SCNSphere *sphere = [SCNSphere sphereWithRadius:5];
-	sphere.name = kNodeNameSphere;
 	
 	SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphere];
+	sphereNode.name = kNodeNameSphere;
 	sphereNode.position = SCNVector3Make(-5, 13, -38);
 	sphere.materials = @[watermelonTexture];
 	
@@ -69,7 +74,23 @@
 
 }
 
+/**
+ * Copies an image from the camera.
+ */
 - (void) willRenderScene:(SCNScene *) scene {
+	SCNNode *sphere = [scene.rootNode childNodeWithName:kNodeNameSphere recursively:YES];
+	
+	/*if(sphere) {
+		SCNMaterial *watermelonTexture = sphere.geometry.firstMaterial;
+		watermelonTexture.diffuse.contents = _camera.cameraLayer;
+		sphere.geometry.materials = @[watermelonTexture];
+	}*/
+}
+
+/**
+ * Called when the scene is torn down.
+ */
+- (void) willTearDownScene:(SCNScene *) scene {
 	
 }
 

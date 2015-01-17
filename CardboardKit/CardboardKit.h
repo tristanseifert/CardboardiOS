@@ -17,4 +17,5 @@ FOUNDATION_EXPORT const unsigned char CardboardKitVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <CardboardKit/PublicHeader.h>
 #import <CardboardKit/SQUCardboardKit.h>
 #import <CardboardKit/SQUGLController.h>
+#import <CardboardKit/SQUCameraCapturer.h>
 #import <CardboardKit/SQURenderDelegate.h>

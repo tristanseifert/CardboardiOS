@@ -37,7 +37,9 @@
 		_renderisor = renderer;
 		
 		_offset = 0.2;
+		
 		_initialised = NO;
+		_sceneInitialised = NO;
 		
 		[[SQUCardboardKit sharedInstance] addObserver:self forKeyPath:@"cameraAngle" options:0 context:NULL];
 	}
@@ -49,6 +51,10 @@
  * Removes observers
  */
 - (void) dealloc {
+	// tear down renderer
+	[_renderisor willTearDownScene:_scene];
+	
+	// remove KVO
 	@try {
 		[[SQUCardboardKit sharedInstance] removeObserver:self forKeyPath:@"cameraAngle"];
 	}
@@ -75,11 +81,6 @@
 	[super viewWillAppear:animated];
 	
 	if(!_initialised) {
-		// initialise camera
-		_camera = [[SQUCameraCapturer alloc] init];
-		[_camera requestPermission];
-		[_camera beginCapture];
-		
 		// initialise the rest of the UI
 		// background of view is black (for shadow/fog)
 		self.view.backgroundColor = [UIColor blackColor];
@@ -101,7 +102,6 @@
 }
 - (void) viewDidDisappear:(BOOL) animated {
 	[super viewWillAppear:animated];
-	[_camera endCapture];
 	
 	// set brightness
 	[UIScreen mainScreen].brightness = _oldBrightness;
@@ -218,6 +218,7 @@
 	
 	// call the renderer
 	[_renderisor addNodesToScene:_scene];
+	_sceneInitialised = YES;
 }
 
 #pragma mark - Scene Kit Delegate
@@ -225,7 +226,7 @@
  * Something is about to be modified
  */
 - (void) renderer:(id <SCNSceneRenderer>) aRenderer willRenderScene:(SCNScene *) scene atTime:(NSTimeInterval) time {
-	if(aRenderer == _renderViewLeft) {
+	if(aRenderer == _renderViewLeft && _sceneInitialised) {
 		[_renderisor willRenderScene:_scene];
 	}
 }

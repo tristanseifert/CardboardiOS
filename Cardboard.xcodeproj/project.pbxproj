@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DA1A6A977C00DC4726 /* SQUCameraCapturer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DA1A6A977C00DC4726 /* SQUCameraCapturer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A6F03DD1A6A977C00DC4726 /* SQUCameraCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F03DB1A6A977C00DC4726 /* SQUCameraCapturer.m */; };
 		6A6F03DF1A6AA27C00DC4726 /* SQURenderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DE1A6AA27C00DC4726 /* SQURenderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A6F03E21A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F03E11A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m */; };
@@ -256,8 +256,8 @@
 				6ACA7A371A6A461F0060B316 /* CardboardKit.h in Headers */,
 				6ACA7A551A6A466C0060B316 /* SQUCardboardKit.h in Headers */,
 				6A6F03DF1A6AA27C00DC4726 /* SQURenderDelegate.h in Headers */,
-				6ACA7A5A1A6A4A0B0060B316 /* SQUGLController.h in Headers */,
 				6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */,
+				6ACA7A5A1A6A4A0B0060B316 /* SQUGLController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
