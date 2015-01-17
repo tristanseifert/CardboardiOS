@@ -42,7 +42,7 @@
 	
 	[scene.rootNode addChildNode:boxNode];
 	
-	// add some animation to the cube	
+	// add some animation to the cube
 	CABasicAnimation *boxRotation =	[CABasicAnimation animationWithKeyPath:@"rotation"];
 	boxRotation.fromValue =	[NSValue valueWithSCNVector4:SCNVector4Make(1, 0, 1, 0)];
 	boxRotation.toValue = [NSValue valueWithSCNVector4:SCNVector4Make(1, 0, 1, 2*M_PI)];

@@ -124,7 +124,9 @@
 	_renderViewLeft = [[SCNView alloc] initWithFrame:l];
 	_renderViewLeft.preferredFramesPerSecond = 60;
 	_renderViewLeft.antialiasingMode = SCNAntialiasingModeMultisampling2X;
+	
 	_renderViewLeft.backgroundColor = self.view.backgroundColor;
+	
 	_renderViewLeft.delegate = self;
 	_renderViewLeft.showsStatistics = YES;
 	
@@ -137,15 +139,17 @@
 	_renderViewRight = [[SCNView alloc] initWithFrame:r];
 	_renderViewRight.preferredFramesPerSecond = _renderViewLeft.preferredFramesPerSecond;
 	_renderViewRight.antialiasingMode = _renderViewLeft.antialiasingMode;
+	
 	_renderViewRight.backgroundColor = _renderViewLeft.backgroundColor;
+	
 	_renderViewRight.delegate = _renderViewLeft.delegate;
 	_renderViewRight.showsStatistics = YES;
 	
 	// set up teh scene
 	_scene = [SCNScene scene];
 	
-	_scene.fogStartDistance = 35.f;
-	_scene.fogEndDistance = 50.f;
+/*	_scene.fogStartDistance = 15.f;
+	_scene.fogEndDistance = 50.f;*/
 	
 	[self initNodes];
 	
@@ -169,6 +173,8 @@
 	_cam_l = [SCNNode node];
 	_cam_l.name = kNodeNameCameraLeft;
 	_cam_l.camera = [SCNCamera camera];
+	_cam_l.camera.focalSize = 15.f;
+	_cam_l.camera.aperture = (1/6.f);
 	_cam_l.position = SCNVector3Make(-_offset, 0, 0);
 	
 	[_scene.rootNode addChildNode:_cam_l];
@@ -177,6 +183,8 @@
 	_cam_r = [SCNNode node];
 	_cam_r.name = kNodeNameCameraRight;
 	_cam_r.camera = [SCNCamera camera];
+	_cam_r.camera.focalSize = 15.f;
+	_cam_r.camera.aperture = (1/6.f);
 	_cam_r.position = SCNVector3Make(_offset, 0, 0);
 	
 	[_scene.rootNode addChildNode:_cam_r];
