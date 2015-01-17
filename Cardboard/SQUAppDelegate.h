@@ -8,14 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class SQUGLController;
 
-@interface SQUAppDelegate : NSObject <UIApplicationDelegate> {
+@interface SQUAppDelegate : NSObject <UIApplicationDelegate, CLLocationManagerDelegate> {
 	
 }
 
 @property (nonatomic) UIWindow *window;
 @property (nonatomic) SQUGLController *mainController;
+
+@property(strong) CLLocationManager *locationManager;
+
 
 @end
