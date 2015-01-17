@@ -36,7 +36,7 @@
 	if(self = [super initWithNibName:nil bundle:nil]) {
 		_renderisor = renderer;
 		
-		_offset = 0.75;
+		_offset = 0.2;
 		_initialised = NO;
 		
 		[[SQUCardboardKit sharedInstance] addObserver:self forKeyPath:@"cameraAngle" options:0 context:NULL];
@@ -123,7 +123,7 @@
 	
 	_renderViewLeft = [[SCNView alloc] initWithFrame:l];
 	_renderViewLeft.preferredFramesPerSecond = 50;
-	_renderViewLeft.antialiasingMode = SCNAntialiasingModeNone;
+	_renderViewLeft.antialiasingMode = SCNAntialiasingModeMultisampling2X;
 	_renderViewLeft.backgroundColor = self.view.backgroundColor;
 	_renderViewLeft.delegate = self;
 	_renderViewLeft.showsStatistics = YES;
@@ -184,7 +184,7 @@
 	// A spotlight
 	SCNLight *spotLight = [SCNLight light];
 	spotLight.type = SCNLightTypeSpot;
-	spotLight.color = [UIColor whiteColor];
+	spotLight.color = [UIColor colorWithWhite:0.25 alpha:0.25];
 	
 	SCNNode *spotLightNode = [SCNNode node];
 	spotLightNode.light = spotLight;

@@ -123,13 +123,13 @@ static SQUCardboardKit *sharedInstance = nil;
 		float roll = -(_motionData.attitude.roll - _motionDataLastVal.attitude.roll );
 		float pitch = (_motionData.attitude.pitch - _motionDataLastVal.attitude.pitch );
 		
-        float accelX = (_motionData.userAcceleration.x - _motionDataLastVal.userAcceleration.x );
+        /*float accelX = (_motionData.userAcceleration.x - _motionDataLastVal.userAcceleration.x );
         float accelY = (_motionData.userAcceleration.y - _motionDataLastVal.userAcceleration.y );
         float accelZ = (_motionData.userAcceleration.z - _motionDataLastVal.userAcceleration.z );
         
         float orientX = (_motionData.magneticField.field.x - _motionDataLastVal.magneticField.field.x);
         float orientY = (_motionData.magneticField.field.y - _motionDataLastVal.magneticField.field.y);
-        float orientZ = (_motionData.magneticField.field.z - _motionDataLastVal.magneticField.field.z);
+        float orientZ = (_motionData.magneticField.field.z - _motionDataLastVal.magneticField.field.z);*/
 
         if(_motionData.magneticField.field.z-_motionDataLastVal.magneticField.field.z>=200 && _motionDataLastVal.magneticField.field.z!=0){
             NSLog(@"Button Up");
@@ -138,7 +138,7 @@ static SQUCardboardKit *sharedInstance = nil;
             NSLog(@"Button Down");
         }
 
-       printf("Attitude yaw: %.1f, roll %.1f, pitch %.1f \n accelX: %.1f Y: %.1f Z: %.1f \n orientX: %.01f Y: %.01f Z: %.01f\n",yaw,roll,pitch,accelX,accelY,accelZ,orientX,orientY,orientZ);
+       //printf("Attitude yaw: %.1f, roll %.1f, pitch %.1f \n accelX: %.1f Y: %.1f Z: %.1f \n orientX: %.01f Y: %.01f Z: %.01f\n",yaw,roll,pitch,accelX,accelY,accelZ,orientX,orientY,orientZ);
         
         _motionDataLastVal = _motionData;
 		
@@ -146,9 +146,7 @@ static SQUCardboardKit *sharedInstance = nil;
 		[self willChangeValueForKey:@"cameraAngle"];
 		_cameraAngle.x += roll;
 		_cameraAngle.y += yaw;
-		_cameraAngle.z += pitch;
-		
-//		_cameraAngle = SCNVector3Make(pitch, yaw, roll);
+		_cameraAngle.z += -pitch;
 		[self didChangeValueForKey:@"cameraAngle"];
     }
 }
