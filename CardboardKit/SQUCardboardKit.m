@@ -95,7 +95,7 @@ static SQUCardboardKit *sharedInstance = nil;
             }
         }];
     
-       /* //update magnetometer data
+       //update magnetometer data
         _motionManager.magnetometerUpdateInterval = kMotionUpdateInterval; // 1/10 sec update interval
         
         [_motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *data, NSError *error) {
@@ -107,7 +107,7 @@ static SQUCardboardKit *sharedInstance = nil;
             else{
                 NSLog(@"Error reading magneto data");
             }
-        }];*/
+        }];
     }
 	
 	// this seems like a good time to do this !??!?!?//!/1//111
@@ -116,7 +116,14 @@ static SQUCardboardKit *sharedInstance = nil;
 
 -(void) observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context{
     if([keyPath isEqualToString:@"magnetometerData"]){ //warning: occasionally button will trigger twice for one direction--be sure to cope with this otherwise shit will fly.
-        
+        NSLog(@"TWIST");
+        if(_magnetometerData.magneticField.z-_magnetometerLastVal>=200 && _magnetometerData.magneticField.z!=0){
+            NSLog(@"Button Up");
+        }
+        if(_magnetometerLastVal-_magnetometerData.magneticField.z>=200 && _magnetometerLastVal!=0){
+            NSLog(@"Button Down");
+        }
+        _magnetometerLastVal = _magnetometerData.magneticField.z;
     }
     if([keyPath isEqualToString:@"motionData"]){ //update the position
 		float yaw = (_motionData.attitude.yaw - _motionDataLastVal.attitude.yaw);
@@ -130,13 +137,6 @@ static SQUCardboardKit *sharedInstance = nil;
         float orientX = (_motionData.magneticField.field.x - _motionDataLastVal.magneticField.field.x);
         float orientY = (_motionData.magneticField.field.y - _motionDataLastVal.magneticField.field.y);
         float orientZ = (_motionData.magneticField.field.z - _motionDataLastVal.magneticField.field.z);*/
-
-        if(_motionData.magneticField.field.z-_motionDataLastVal.magneticField.field.z>=200 && _motionDataLastVal.magneticField.field.z!=0){
-            NSLog(@"Button Up");
-        }
-        if(_motionDataLastVal.magneticField.field.z-_motionData.magneticField.field.z>=200 && _motionDataLastVal.magneticField.field.z!=0){
-            NSLog(@"Button Down");
-        }
 
        //printf("Attitude yaw: %.1f, roll %.1f, pitch %.1f \n accelX: %.1f Y: %.1f Z: %.1f \n orientX: %.01f Y: %.01f Z: %.01f\n",yaw,roll,pitch,accelX,accelY,accelZ,orientX,orientY,orientZ);
         
