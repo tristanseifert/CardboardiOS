@@ -17,11 +17,10 @@
  * initialises the nodes to be added to the scene
  */
 - (void) addNodesToScene:(SCNScene *) scene {
-
 	// create the camera
-	_camera = [[SQUCameraCapturer alloc] init];
+	/*_camera = [[SQUCameraCapturer alloc] init];
 	[_camera requestPermission];
-	[_camera beginCapture];
+	[_camera beginCapture];*/
 	
 	// create a single cube
 	CGFloat boxSide = 10.0;
@@ -32,8 +31,7 @@
 	box.name = kNodeNameCube;
 	
 	SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
-	boxNode.position = SCNVector3Make(0, 0, -40);
-	
+	boxNode.position = SCNVector3Make(0, 0, -30);
 	
 	// load the watermelon texture
 	SCNMaterial *watermelonTexture = box.firstMaterial;
@@ -44,20 +42,15 @@
 	
 	[scene.rootNode addChildNode:boxNode];
 	
-	// add some animation to the cube
-	CABasicAnimation *boxRotation =
-	[CABasicAnimation animationWithKeyPath:@"transform"];
-	boxRotation.fromValue =
-	[NSValue valueWithSCNMatrix4:SCNMatrix4Rotate(boxNode.transform, 0, 1, 1, 0)];
-	boxRotation.toValue =
-	[NSValue valueWithSCNMatrix4:SCNMatrix4Rotate(boxNode.transform, M_PI, 1, 1, 0)];
-	boxRotation.timingFunction =
-	[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+	// add some animation to the cube	
+	CABasicAnimation *boxRotation =	[CABasicAnimation animationWithKeyPath:@"rotation"];
+	boxRotation.fromValue =	[NSValue valueWithSCNVector4:SCNVector4Make(1, 0, 1, 0)];
+	boxRotation.toValue = [NSValue valueWithSCNVector4:SCNVector4Make(1, 0, 1, 2*M_PI)];
+	boxRotation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
 	boxRotation.repeatCount = INFINITY;
 	boxRotation.duration = 2.0;
 	
-	//[boxNode addAnimation:boxRotation
-	//			   forKey:@"RotateCubular"];
+	[boxNode addAnimation:boxRotation forKey:@"RotateCubular"];
 	
 	// create a sphere
 	SCNSphere *sphere = [SCNSphere sphereWithRadius:5];
@@ -78,9 +71,9 @@
  * Copies an image from the camera.
  */
 - (void) willRenderScene:(SCNScene *) scene {
-	SCNNode *sphere = [scene.rootNode childNodeWithName:kNodeNameSphere recursively:YES];
+	/*SCNNode *sphere = [scene.rootNode childNodeWithName:kNodeNameSphere recursively:YES];
 	
-	/*if(sphere) {
+	if(sphere) {
 		SCNMaterial *watermelonTexture = sphere.geometry.firstMaterial;
 		watermelonTexture.diffuse.contents = _camera.cameraLayer;
 		sphere.geometry.materials = @[watermelonTexture];
