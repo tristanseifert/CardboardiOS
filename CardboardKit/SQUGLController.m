@@ -32,11 +32,8 @@
  */
 - (id) init {
 	if(self = [super initWithNibName:nil bundle:nil]) {
-		// initialise camera
-		_camera = [[SQUCameraCapturer alloc] init];
-		[_camera requestPermission];
-		
 		_offset = 0.5;
+		_initialised = NO;
 	}
 	
 	return self;
@@ -47,6 +44,50 @@
  */
 - (UIStatusBarStyle) preferredStatusBarStyle {
 	return UIStatusBarStyleLightContent;
+}
+
+/**
+ * View loaded plsss
+ */
+- (void) viewDidLoad {
+	[super viewDidLoad];
+}
+
+- (void) viewWillAppear:(BOOL) animated {
+	[super viewWillAppear:animated];
+	
+	if(!_initialised) {
+		// initialise camera
+		_camera = [[SQUCameraCapturer alloc] init];
+		[_camera requestPermission];
+		[_camera beginCapture];
+		
+		// initialise the rest of the UI
+		// background of view is black (for shadow/fog)
+		self.view.backgroundColor = [UIColor blackColor];
+		
+		// init scene kit
+		[self initSceneKit];
+		
+		// view's BG is a grey for the divider
+		self.view.backgroundColor = [UIColor darkGrayColor];
+		
+		//
+		/*	_camera.cameraLayer.frame = CGRectMake(240, 15, 256, 256);
+		 [self.view.layer addSublayer:_camera.cameraLayer];*/
+		
+		// done with initialisation
+		_initialised = YES;
+	}
+}
+- (void) viewDidDisappear:(BOOL) animated {
+	[super viewWillAppear:animated];
+	[_camera endCapture];
+}
+
+- (void) didReceiveMemoryWarning {
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Scene Kit
@@ -60,7 +101,6 @@
 	l.size.width -= 1;
 	
 	_renderViewLeft = [[SCNView alloc] initWithFrame:l];
-	_renderViewLeft.preferredFramesPerSecond = 60;
 	_renderViewLeft.antialiasingMode = SCNAntialiasingModeNone;
 	_renderViewLeft.backgroundColor = self.view.backgroundColor;
 	_renderViewLeft.delegate = self;
@@ -74,13 +114,12 @@
 	r.origin.x = r.size.width + 1;
 	
 	_renderViewRight = [[SCNView alloc] initWithFrame:r];
-	_renderViewRight.preferredFramesPerSecond = 60;
-	_renderViewRight.antialiasingMode = SCNAntialiasingModeNone;
-	_renderViewRight.backgroundColor = self.view.backgroundColor;
-	_renderViewRight.delegate = self;
+	_renderViewRight.antialiasingMode = _renderViewLeft.antialiasingMode;
+	_renderViewRight.backgroundColor = _renderViewLeft.backgroundColor;
+	_renderViewRight.delegate = _renderViewLeft.delegate;
 	
 	//_renderViewRight.backgroundColor = [UIColor colorWithRed:0 green:1 blue:1 alpha:1];
-	//_renderViewRight.allowsCameraControl = YES;
+	//_renderViewRight.allowsCameraControl = _renderViewLeft.allowsCameraControl;
 	
 	// set up teh scene
 	_scene = [SCNScene scene];
@@ -94,12 +133,12 @@
 	_renderViewLeft.scene = _scene;
 	_renderViewLeft.pointOfView = _cam_l;
 	
-	//_renderViewRight.scene = _scene;
-	//_renderViewRight.pointOfView = _cam_r;
+	_renderViewRight.scene = _scene;
+	_renderViewRight.pointOfView = _cam_r;
 	
 	// add them views
 	[self.view addSubview:_renderViewLeft];
-	//[self.view addSubview:_renderViewRight];
+	[self.view addSubview:_renderViewRight];
 }
 
 /**
@@ -131,20 +170,20 @@
 	box.name = kNodeNameCube;
 	
 	NSAssert(_camera.cameraLayer, @"Camera layer must be initialised, pls.");
+	NSLog(@"camera materials before: %@", box.materials);
 	
-	SCNMaterial *cameraTexture = [SCNMaterial material];
-	cameraTexture.diffuse.contents = _camera.cameraLayer;
-	cameraTexture.diffuse.borderColor = [UIColor redColor];
-	cameraTexture.diffuse.wrapS = SCNWrapModeRepeat;
-	cameraTexture.diffuse.wrapT = SCNWrapModeRepeat;
+	SCNMaterial *cameraTexture = box.firstMaterial;
+	//cameraTexture.diffuse.contents = _camera.cameraLayer;
 	
-	cameraTexture.specular.contents = [UIColor colorWithWhite:0.2 alpha:1.0];
+	cameraTexture.diffuse.contents = [UIImage imageNamed:@"watermelon"];
+	cameraTexture.specular.contents = [UIColor colorWithWhite:0.15 alpha:1.0];
 	box.materials = @[cameraTexture];
 	
 	SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
 	boxNode.position = SCNVector3Make(0, 0, 0);
 //	boxNode.transform = SCNMatrix4Rotate(boxNode.transform, 0, 0, 1, 0);
 	
+	NSLog(@"camera materials after: %@", box.materials);
 	[_scene.rootNode addChildNode:boxNode];
 	
 	CABasicAnimation *boxRotation =
@@ -164,7 +203,7 @@
 	// A spotlight
 	SCNLight *spotLight = [SCNLight light];
 	spotLight.type = SCNLightTypeSpot;
-	spotLight.color = [UIColor redColor];
+	spotLight.color = [UIColor whiteColor];
 	
 	SCNNode *spotLightNode = [SCNNode node];
 	spotLightNode.light = spotLight;
@@ -229,41 +268,6 @@
  */
 - (void) setOffset:(CGFloat) offset {
 	_offset = fabs(offset);
-}
-
-#pragma mark - View Delegate
-/**
- * View loaded plsss
- */
-- (void) viewDidLoad {
-    [super viewDidLoad];
-	
-	// background of view is black (for shadow/fog)
-	self.view.backgroundColor = [UIColor blackColor];
-	
-	// init scene kit
-	[self initSceneKit];
-	
-	// view's BG is a grey for the divider
-	self.view.backgroundColor = [UIColor darkGrayColor];
-	
-	//
-/*	_camera.cameraLayer.frame = CGRectMake(240, 15, 256, 256);
-	[self.view.layer addSublayer:_camera.cameraLayer];*/
-}
-
-- (void) viewWillAppear:(BOOL) animated {
-	[super viewWillAppear:animated];
-	[_camera beginCapture];
-}
-- (void) viewDidDisappear:(BOOL) animated {
-	[super viewWillAppear:animated];
-	[_camera endCapture];
-}
-
-- (void) didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

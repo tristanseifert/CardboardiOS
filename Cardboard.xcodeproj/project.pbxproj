@@ -36,6 +36,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6A6F03D81A6A910300DC4726 /* Copy Resources */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			name = "Copy Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6ACA7A4E1A6A461F0060B316 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -106,6 +116,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6A6F03D51A6A8F5D00DC4726 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		6ACA79ED1A6A2B350060B316 = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +183,7 @@
 		6ACA7A331A6A461F0060B316 /* CardboardKit */ = {
 			isa = PBXGroup;
 			children = (
+				6A6F03D51A6A8F5D00DC4726 /* Resources */,
 				6ACA7A5D1A6A4BD70060B316 /* Image Routing */,
 				6ACA7A571A6A4A010060B316 /* Rendering */,
 				6ACA7A5C1A6A4A0F0060B316 /* Motion */,
@@ -278,6 +296,7 @@
 				6ACA7A2D1A6A461F0060B316 /* Sources */,
 				6ACA7A2E1A6A461F0060B316 /* Frameworks */,
 				6ACA7A2F1A6A461F0060B316 /* Headers */,
+				6A6F03D81A6A910300DC4726 /* Copy Resources */,
 				6ACA7A301A6A461F0060B316 /* Resources */,
 			);
 			buildRules = (

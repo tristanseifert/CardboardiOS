@@ -18,6 +18,8 @@
 	SCNView *_renderViewRight;
 	
 	SCNNode *_cam_l, *_cam_r;
+	
+	BOOL _initialised;
 }
 
 @property (nonatomic, readonly) SQUCameraCapturer *camera;

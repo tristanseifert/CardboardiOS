@@ -27,14 +27,14 @@
 	
 	// configure capture output as BGRA8888
 	_output = [[AVCaptureVideoDataOutput alloc] init];
-	//[_output setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
+	[_output setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
 	
 	NSDictionary *settings = @{(NSString *) kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
 	[_output setVideoSettings:settings];
 	
 	// set up the session
 	_session = [[AVCaptureSession alloc] init];
-	[_session setSessionPreset:AVCaptureSessionPreset1280x720];
+	[_session setSessionPreset:AVCaptureSessionPreset640x480];
 	
 	// add capture outputs and inputs
 	if ([_session canAddInput:_input]) {
@@ -55,7 +55,7 @@
 	
 	// now, create the layer
 	_cameraLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
-	_cameraLayer.backgroundColor = [[UIColor colorWithRed:1 green:0 blue:1 alpha:1] CGColor];
+	_cameraLayer.backgroundColor = [[UIColor blackColor] CGColor];
 	_cameraLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 	_cameraLayer.frame = CGRectMake(0, 0, 256, 256);
 	
@@ -75,6 +75,14 @@
  */
 - (void) endCapture {
 	[_session stopRunning];
+}
+
+#pragma mark - Delegate
+/**
+ *
+ */
+- (void) captureOutput:(AVCaptureOutput *) captureOutput didOutputSampleBuffer:(CMSampleBufferRef) sampleBuffer fromConnection:(AVCaptureConnection *) connection {
+	
 }
 
 @end

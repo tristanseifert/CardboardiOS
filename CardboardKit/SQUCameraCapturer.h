@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface SQUCameraCapturer : NSObject {
+@interface SQUCameraCapturer : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate> {
 	AVCaptureSession *_session;
 	
 	AVCaptureVideoDataOutput *_output;
