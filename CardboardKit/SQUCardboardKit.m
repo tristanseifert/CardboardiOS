@@ -8,7 +8,7 @@
 
 #import "SQUCardboardKit.h"
 
-#define kMotionUpdateInterval 0.05
+#define kMotionUpdateInterval (1.f/60.f)
 
 static SQUCardboardKit *sharedInstance = nil;
 
@@ -116,7 +116,6 @@ static SQUCardboardKit *sharedInstance = nil;
 
 -(void) observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context{
     if([keyPath isEqualToString:@"magnetometerData"]){ //warning: occasionally button will trigger twice for one direction--be sure to cope with this otherwise shit will fly.
-        NSLog(@"TWIST");
         if(_magnetometerData.magneticField.z-_magnetometerLastVal>=200 && _magnetometerData.magneticField.z!=0){
             NSLog(@"Button Up");
         }
