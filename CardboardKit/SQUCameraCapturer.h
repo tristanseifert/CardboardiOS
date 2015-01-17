@@ -15,7 +15,7 @@
 	AVCaptureSession *_session;
 	
 	AVCaptureVideoDataOutput *_output;
-	dispatch_queue_t _videoQueue;
+	AVCaptureDeviceInput *_input;
 }
 
 - (void) requestPermission;
@@ -23,6 +23,6 @@
 - (void) beginCapture;
 - (void) endCapture;
 
-@property (nonatomic, readonly) CALayer *cameraLayer;
+@property (nonatomic, readonly) AVCaptureVideoPreviewLayer *cameraLayer;
 
 @end

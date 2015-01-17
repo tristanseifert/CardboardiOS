@@ -16,6 +16,7 @@
 #define kNodeNameCube @"kNodeNameCube"
 #define kNodeNameSpotLight @"kNodeNameSpotLight"
 #define kNodeNameSunLight @"kNodeNameSunLight"
+#define kNodeNameAmbientLight @"kNodeNameAmbientLight"
 
 @interface SQUGLController ()
 
@@ -31,7 +32,9 @@
  */
 - (id) init {
 	if(self = [super initWithNibName:nil bundle:nil]) {
+		// initialise camera
 		_camera = [[SQUCameraCapturer alloc] init];
+		[_camera requestPermission];
 		
 		_offset = 0.5;
 	}
@@ -54,6 +57,7 @@
 	// set up left view
 	CGRect l = self.view.frame;
 	l.size.width /= 2.f;
+	l.size.width -= 1;
 	
 	_renderViewLeft = [[SCNView alloc] initWithFrame:l];
 	_renderViewLeft.preferredFramesPerSecond = 60;
@@ -66,7 +70,8 @@
 	// set up right view
 	CGRect r = self.view.frame;
 	r.size.width /= 2.f;
-	r.origin.x = r.size.width;
+	r.size.width += 1;
+	r.origin.x = r.size.width + 1;
 	
 	_renderViewRight = [[SCNView alloc] initWithFrame:r];
 	_renderViewRight.preferredFramesPerSecond = 60;
@@ -89,12 +94,12 @@
 	_renderViewLeft.scene = _scene;
 	_renderViewLeft.pointOfView = _cam_l;
 	
-	_renderViewRight.scene = _scene;
-	_renderViewRight.pointOfView = _cam_r;
+	//_renderViewRight.scene = _scene;
+	//_renderViewRight.pointOfView = _cam_r;
 	
 	// add them views
 	[self.view addSubview:_renderViewLeft];
-	[self.view addSubview:_renderViewRight];
+	//[self.view addSubview:_renderViewRight];
 }
 
 /**
@@ -125,6 +130,17 @@
 						 chamferRadius:0];
 	box.name = kNodeNameCube;
 	
+	NSAssert(_camera.cameraLayer, @"Camera layer must be initialised, pls.");
+	
+	SCNMaterial *cameraTexture = [SCNMaterial material];
+	cameraTexture.diffuse.contents = _camera.cameraLayer;
+	cameraTexture.diffuse.borderColor = [UIColor redColor];
+	cameraTexture.diffuse.wrapS = SCNWrapModeRepeat;
+	cameraTexture.diffuse.wrapT = SCNWrapModeRepeat;
+	
+	cameraTexture.specular.contents = [UIColor colorWithWhite:0.2 alpha:1.0];
+	box.materials = @[cameraTexture];
+	
 	SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
 	boxNode.position = SCNVector3Make(0, 0, 0);
 //	boxNode.transform = SCNMatrix4Rotate(boxNode.transform, 0, 0, 1, 0);
@@ -143,7 +159,7 @@
 	boxRotation.duration = 2.0;
 	
 	[boxNode addAnimation:boxRotation
-				   forKey:@"RotateTheBox"];
+				   forKey:@"RotateCubular"];
 	
 	// A spotlight
 	SCNLight *spotLight = [SCNLight light];
@@ -155,7 +171,7 @@
 	spotLightNode.position = SCNVector3Make(0, 0, 0);
 	spotLightNode.name = kNodeNameSpotLight;
 	
-	// Changing the color of the spotlight
+/*	// Changing the color of the spotlight
 	CAKeyframeAnimation *spotColor =
 	[CAKeyframeAnimation animationWithKeyPath:@"color"];
 	spotColor.values = @[(id)[UIColor redColor],
@@ -168,23 +184,32 @@
 	spotColor.duration = 3.0;
 	
 	[spotLight addAnimation:spotColor
-					 forKey:@"ChangeTheColorOfTheSpot"];
+					 forKey:@"ChangeTheColorOfTheSpot"];*/
 	
 	[_cam_l addChildNode:spotLightNode];
 	[_cam_r addChildNode:[spotLightNode copy]];
 	
 	// create a global sunlicht
 	SCNLight *sunLight = [SCNLight light];
-	sunLight.type = SCNLightTypeDirectional;
-	sunLight.color = [UIColor colorWithRed:1.0 green:1.0 blue:0.55 alpha:1.0];
+	sunLight.type = SCNLightTypeOmni;
+	sunLight.color = [UIColor colorWithRed:1.0 green:1.0 blue:0.5 alpha:1.0];
+	sunLight.attenuationStartDistance = 0.f;
 	
 	SCNNode *sunLightNode = [SCNNode node];
-	sunLightNode.light = spotLight;
-	sunLightNode.position = SCNVector3Make(30, 30, 30);
-	sunLightNode.transform = SCNMatrix4Rotate(sunLightNode.transform, M_PI_2/4, 1, 1, 0);
+	sunLightNode.light = sunLight;
+	sunLightNode.position = SCNVector3Make(0, 30, 0);
 	sunLightNode.name = kNodeNameSunLight;
-	
 	[_scene.rootNode addChildNode:sunLightNode];
+	
+	// ambient light
+	SCNLight *ambientLight = [SCNLight light];
+	ambientLight.type = SCNLightTypeAmbient;
+	ambientLight.color = [UIColor colorWithWhite:0.1 alpha:1.0];
+	
+	SCNNode *ambientLightNode = [SCNNode node];
+	ambientLightNode.light = ambientLight;
+	ambientLightNode.name = kNodeNameAmbientLight;
+	[_scene.rootNode addChildNode:ambientLightNode];
 }
 
 #pragma mark - Scene Kit Delegate
@@ -218,6 +243,22 @@
 	
 	// init scene kit
 	[self initSceneKit];
+	
+	// view's BG is a grey for the divider
+	self.view.backgroundColor = [UIColor darkGrayColor];
+	
+	//
+/*	_camera.cameraLayer.frame = CGRectMake(240, 15, 256, 256);
+	[self.view.layer addSublayer:_camera.cameraLayer];*/
+}
+
+- (void) viewWillAppear:(BOOL) animated {
+	[super viewWillAppear:animated];
+	[_camera beginCapture];
+}
+- (void) viewDidDisappear:(BOOL) animated {
+	[super viewWillAppear:animated];
+	[_camera endCapture];
 }
 
 - (void) didReceiveMemoryWarning {

@@ -20,42 +20,47 @@
 - (void) requestPermission {
 	NSError *error = nil;
 	
+	// get device
+	AVCaptureDevice *inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+	_input = [AVCaptureDeviceInput deviceInputWithDevice:inputDevice error:&error];
+	NSAssert(!error, @"Error getting device input");
+	
+	// configure capture output as BGRA8888
+	_output = [[AVCaptureVideoDataOutput alloc] init];
+	//[_output setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
+	
+	NSDictionary *settings = @{(NSString *) kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
+	[_output setVideoSettings:settings];
+	
 	// set up the session
-	_session = [AVCaptureSession new];
-	[_session setSessionPreset:AVCaptureSessionPreset640x480];
+	_session = [[AVCaptureSession alloc] init];
+	[_session setSessionPreset:AVCaptureSessionPreset1280x720];
 	
-	// get the device
-	AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-	AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
-	NSAssert(!error, @"Could not get input: %@", error);
-	
-	// add the device to the session
-	if ([_session canAddInput:deviceInput]) {
-		[_session addInput:deviceInput];
+	// add capture outputs and inputs
+	if ([_session canAddInput:_input]) {
+		[_session addInput:_input];
+	} else {
+		NSLog(@"Cannot add input");
 	}
 	
-	// create a video output
-	_output = [AVCaptureVideoDataOutput new];
-	
-	NSDictionary *rgbOutputSettings = @{(NSString *)kCVPixelBufferPixelFormatTypeKey: @(kCMPixelFormat_32BGRA)};
-	[_output setVideoSettings:rgbOutputSettings];
-	[_output setAlwaysDiscardsLateVideoFrames:YES];
-	
-	// create a serial queue that guarantees the frames are delivered in order
-	_videoQueue = dispatch_queue_create("VideoDataOutputQueue", DISPATCH_QUEUE_SERIAL);
-	//[_output setSampleBufferDelegate:self queue:_videoQueue];
-	
-	// add it
 	if ([_session canAddOutput:_output]) {
 		[_session addOutput:_output];
+	} else {
+		NSLog(@"Cannot add output");
 	}
 	
-	[[_output connectionWithMediaType:AVMediaTypeVideo] setEnabled:NO];
+	// fix orientation
+/*	AVCaptureConnection *conn = [_output connectionWithMediaType:AVMediaTypeVideo];
+	[conn setVideoOrientation:AVCaptureVideoOrientationPortrait];*/
 	
 	// now, create the layer
-	_cameraLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_session];
-	_cameraLayer.backgroundColor = [[UIColor blackColor] CGColor];
-	_cameraLayer.contentsGravity = AVLayerVideoGravityResizeAspect;
+	_cameraLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
+	_cameraLayer.backgroundColor = [[UIColor colorWithRed:1 green:0 blue:1 alpha:1] CGColor];
+	_cameraLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+	_cameraLayer.frame = CGRectMake(0, 0, 256, 256);
+	
+	// done
+	NSLog(@"Video input setup complete");
 }
 
 /**
