@@ -147,8 +147,6 @@ static SQUCardboardKit *sharedInstance = nil;
 		_cameraAngle.x += roll;
 		_cameraAngle.y += yaw;
 		_cameraAngle.z += -pitch;
-		
-//		_cameraAngle = SCNVector3Make(pitch, yaw, roll);
 		[self didChangeValueForKey:@"cameraAngle"];
     }
 }

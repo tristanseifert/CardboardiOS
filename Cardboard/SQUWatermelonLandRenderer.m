@@ -33,7 +33,8 @@
 	// load the watermelon texture
 	SCNMaterial *watermelonTexture = box.firstMaterial;
 	watermelonTexture.diffuse.contents = [UIImage imageNamed:@"watermelon"];
-	watermelonTexture.specular.contents = [UIColor colorWithWhite:0.1 alpha:1.0];
+	watermelonTexture.specular.contents = [UIColor colorWithWhite:0.05 alpha:1.0];
+	watermelonTexture.shininess = 0.025;
 	box.materials = @[watermelonTexture];
 	
 	[scene.rootNode addChildNode:boxNode];

@@ -184,7 +184,7 @@
 	// A spotlight
 	SCNLight *spotLight = [SCNLight light];
 	spotLight.type = SCNLightTypeSpot;
-	spotLight.color = [UIColor whiteColor];
+	spotLight.color = [UIColor colorWithWhite:0.25 alpha:0.25];
 	
 	SCNNode *spotLightNode = [SCNNode node];
 	spotLightNode.light = spotLight;
