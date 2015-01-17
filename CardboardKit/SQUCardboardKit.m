@@ -36,13 +36,12 @@ static SQUCardboardKit *sharedInstance = nil;
 	return sharedInstance;
 }
 
-/*
  /**
  * Requests location permissions
- 
+ */
 - (void) requestPermissions {
 	//check on location data permissions
-	_locationManager = [[CLLocationManager alloc]init];
+	_locationManager = [[CLLocationManager alloc] init];
 	CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
 	
 	if(authStatus == (kCLAuthorizationStatusRestricted | kCLAuthorizationStatusDenied)){ //need to ask permission
@@ -61,7 +60,7 @@ static SQUCardboardKit *sharedInstance = nil;
 
 /**
  * Receives heading changes
- 
+ */
 -(void) locationManager:(CLLocationManager *) manager didUpdateHeading:(CLHeading *) newHeading{
 	//NSLog(@"Heading: %@",newHeading);
 	
@@ -69,7 +68,6 @@ static SQUCardboardKit *sharedInstance = nil;
 		NSLog(@"\n\n\nBUTTON PRESS!!!!\n\n\n");
 	}
 }
-*/
 
 /**
  * Configures sensors and orientation matrix for perspective calculations

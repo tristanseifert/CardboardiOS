@@ -184,7 +184,7 @@
 	cameraTexture.diffuse.contents = _camera.cameraLayer;
 	
 	cameraTexture.diffuse.contents = [UIImage imageNamed:@"watermelon"];
-	cameraTexture.specular.contents = [UIColor colorWithWhite:0.15 alpha:1.0];
+	cameraTexture.specular.contents = [UIColor colorWithWhite:0.1 alpha:1.0];
 	box.materials = @[cameraTexture];
 	
 	SCNNode *boxNode = [SCNNode nodeWithGeometry:box];

@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreMotion/CoreMotion.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface SQUCardboardKit : NSObject {
+	
 }
 
+@property (nonatomic, retain) CLLocationManager *locationManager;
 
 + (instancetype) sharedInstance;
 
