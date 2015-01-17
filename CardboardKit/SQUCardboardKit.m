@@ -12,7 +12,13 @@ static SQUCardboardKit *sharedInstance = nil;
 
 @interface SQUCardboardKit ()
 
-@property (nonatomic, retain) CLLocationManager *locationManager;
+@property CMDeviceMotion *motionData;
+@property CMDeviceMotion *motionDataLastVal;
+
+@property CMMagnetometerData *magnetometerData;
+@property float magnetometerLastVal;
+
+@property (strong) CMMotionManager *motionManager;
 
 @end
 
@@ -30,9 +36,10 @@ static SQUCardboardKit *sharedInstance = nil;
 	return sharedInstance;
 }
 
-/**
+/*
+ /**
  * Requests location permissions
- */
+ 
 - (void) requestPermissions {
 	//check on location data permissions
 	_locationManager = [[CLLocationManager alloc]init];
@@ -54,7 +61,7 @@ static SQUCardboardKit *sharedInstance = nil;
 
 /**
  * Receives heading changes
- */
+ 
 -(void) locationManager:(CLLocationManager *) manager didUpdateHeading:(CLHeading *) newHeading{
 	//NSLog(@"Heading: %@",newHeading);
 	
@@ -62,6 +69,76 @@ static SQUCardboardKit *sharedInstance = nil;
 		NSLog(@"\n\n\nBUTTON PRESS!!!!\n\n\n");
 	}
 }
+*/
 
+/**
+ * Configures sensors and orientation matrix for perspective calculations
+ */
+
+-(void)configureSensors{
+    _motionManager = [[CMMotionManager alloc]init];
+    _motionManager.deviceMotionUpdateInterval = .1;
+    if(_motionManager.deviceMotionAvailable){ //sensor data available, they can use this feature (and app)
+        [self addObserver:self forKeyPath:@"motionData" options:0 context:nil];
+        [self addObserver:self forKeyPath:@"magnetometerData" options:0 context:nil];
+        
+        //update full range of motion data
+        [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^void (CMDeviceMotion *data, NSError *error){
+            if (error == nil){
+                [self willChangeValueForKey:@"motionData"];
+                _motionData=data;
+                [self didChangeValueForKey:@"motionData"];
+            }
+            else{
+                NSLog(@"Error reading accel data");
+            }
+        }];
+    
+       /* //update magnetometer data
+        _motionManager.magnetometerUpdateInterval = .1; // 1/10 sec update interval
+        
+        [_motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *data, NSError *error) {
+            if (error == nil){
+                [self willChangeValueForKey:@"magnetometerData"];
+                _magnetometerData = data;
+                [self didChangeValueForKey:@"magnetometerData"];
+            }
+            else{
+                NSLog(@"Error reading magneto data");
+            }
+        }];*/
+    }
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    if([keyPath isEqualToString:@"magnetometerData"]){ //warning: occasionally button will trigger twice for one direction--be sure to cope with this otherwise shit will fly.
+        
+    }
+    if([keyPath isEqualToString:@"motionData"]){ //update the position
+        float yaw = (_motionData.attitude.yaw - _motionDataLastVal.attitude.yaw ) * (180.0/M_PI);
+        float roll = (_motionData.attitude.roll - _motionDataLastVal.attitude.roll ) * (180.0/M_PI);
+        float pitch = (_motionData.attitude.pitch - _motionDataLastVal.attitude.pitch ) * (180.0/M_PI);
+        
+        float accelX = (_motionData.userAcceleration.x - _motionDataLastVal.userAcceleration.x );
+        float accelY = (_motionData.userAcceleration.y - _motionDataLastVal.userAcceleration.y );
+        float accelZ = (_motionData.userAcceleration.z - _motionDataLastVal.userAcceleration.z );
+        
+        float orientX = (_motionData.magneticField.field.x - _motionDataLastVal.magneticField.field.x);
+        float orientY = (_motionData.magneticField.field.y - _motionDataLastVal.magneticField.field.y);
+        float orientZ = (_motionData.magneticField.field.z - _motionDataLastVal.magneticField.field.z);
+
+        if(_motionData.magneticField.field.z-_motionDataLastVal.magneticField.field.z>=200 && _motionDataLastVal.magneticField.field.z!=0){
+            NSLog(@"Button Up");
+        }
+        if(_motionDataLastVal.magneticField.field.z-_motionData.magneticField.field.z>=200 && _motionDataLastVal.magneticField.field.z!=0){
+            NSLog(@"Button Down");
+        }
+
+        NSLog(@"Attitude yaw: %.1f, roll %.1f, pitch %.1f \n accelX: %.1f Y: %.1f Z: %.1f \n orientX: %.01f Y: %.01f Z: %.01f",yaw,roll,pitch,accelX,accelY,accelZ,orientX,orientY,orientZ);
+        
+        _motionDataLastVal = _motionData;
+        
+    }
+}
 
 @end

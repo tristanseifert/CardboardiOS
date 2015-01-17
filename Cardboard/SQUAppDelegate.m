@@ -28,7 +28,7 @@
 	DDLogInfo(@"Initialised main UI");
 	
 	// initialise cardboard kit, pls
-	[[SQUCardboardKit sharedInstance] requestPermissions];
+	[[SQUCardboardKit sharedInstance] configureSensors];
 	
 	return YES;
 }

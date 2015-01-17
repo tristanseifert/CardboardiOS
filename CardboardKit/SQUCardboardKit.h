@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
+#import <CoreMotion/CoreMotion.h>
 
-@interface SQUCardboardKit : NSObject <CLLocationManagerDelegate> {
-	
+@interface SQUCardboardKit : NSObject {
 }
+
 
 + (instancetype) sharedInstance;
 
-- (void) requestPermissions;
+- (void) configureSensors;
 
 @end
