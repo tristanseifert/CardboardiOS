@@ -10,6 +10,8 @@
 
 #import "SQUAppDelegate.h"
 
+#import "SQUCardboardKit.h"
+
 @implementation SQUAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -24,32 +26,11 @@
 	
 	// things
 	DDLogInfo(@"Initialised main UI");
-    
-    //check on location data permissions
-    _locationManager = [[CLLocationManager alloc]init];
-    CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
-    
-    if(authStatus == (kCLAuthorizationStatusRestricted | kCLAuthorizationStatusDenied)){ //need to ask permission
-        [_locationManager requestWhenInUseAuthorization]; //ask permission
-    }
-    if([_locationManager headingAvailable]){ //cool, let's set it up
-        _locationManager.delegate = self;
-        _locationManager.headingFilter = kCLHeadingFilterNone; //continuous survey of the magnetometer calling delegate
-        [_locationManager startUpdatingHeading];
-        NSLog(@"heading iniditated");
-    }
-    else{ //this is very unlikely to be called ever
-        [[UIAlertView alloc]initWithTitle:@"Not Compatible" message:@"Your iOS device is not compatible with the magnetic button for lack of a proper digital compass/magnetometer. However, you can still try to use this app." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-    }
+	
+	// initialise cardboard kit, pls
+	[[SQUCardboardKit sharedInstance] requestPermissions];
 	
 	return YES;
-}
-
--(void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading{
-    NSLog(@"Heading: %@",newHeading);
-    if(abs(180.0-abs(newHeading.y))<=40.0){
-        NSLog(@"\n\n\nBUTTON PRESS!!!!\n\n\n");
-    }
 }
 
 @end

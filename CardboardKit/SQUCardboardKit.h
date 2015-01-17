@@ -7,9 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface SQUCardboardKit : NSObject
+@interface SQUCardboardKit : NSObject <CLLocationManagerDelegate> {
+	
+}
 
 + (instancetype) sharedInstance;
+
+- (void) requestPermissions;
 
 @end

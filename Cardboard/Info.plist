@@ -19,9 +19,13 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>25</string>
+	<string>28</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationUsageDescription</key>
+	<string>Location and Motion data are required to match physical movements to those in the rendered scene.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Location and Motion data are required to match physical movements to those in the rendered scene.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

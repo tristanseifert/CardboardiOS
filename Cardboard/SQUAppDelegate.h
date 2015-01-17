@@ -12,14 +12,12 @@
 
 @class SQUGLController;
 
-@interface SQUAppDelegate : NSObject <UIApplicationDelegate, CLLocationManagerDelegate> {
+@interface SQUAppDelegate : NSObject <UIApplicationDelegate> {
 	
 }
 
 @property (nonatomic) UIWindow *window;
 @property (nonatomic) SQUGLController *mainController;
-
-@property(strong) CLLocationManager *locationManager;
 
 
 @end
