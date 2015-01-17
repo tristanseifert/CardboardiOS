@@ -15,7 +15,7 @@
 
 @implementation SQUAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL) application:(UIApplication *) application didFinishLaunchingWithOptions:(NSDictionary *) launchOptions {
 	_watermelon = [[SQUWatermelonLandRenderer alloc] init];
 	
 	// create main controller

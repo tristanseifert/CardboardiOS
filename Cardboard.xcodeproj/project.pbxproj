@@ -167,13 +167,13 @@
 			path = Cardboard;
 			sourceTree = "<group>";
 		};
-		6ACA7A291A6A2EE20060B316 /* GL Rendering */ = {
+		6ACA7A291A6A2EE20060B316 /* Watermelon Example */ = {
 			isa = PBXGroup;
 			children = (
 				6A6F03E01A6AA39D00DC4726 /* SQUWatermelonLandRenderer.h */,
 				6A6F03E11A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m */,
 			);
-			name = "GL Rendering";
+			name = "Watermelon Example";
 			path = Cardboard;
 			sourceTree = "<group>";
 		};
@@ -201,7 +201,7 @@
 		6ACA7A521A6A462F0060B316 /* Cardboard App */ = {
 			isa = PBXGroup;
 			children = (
-				6ACA7A291A6A2EE20060B316 /* GL Rendering */,
+				6ACA7A291A6A2EE20060B316 /* Watermelon Example */,
 				6ACA7A231A6A2CC20060B316 /* App Delegate */,
 				6ACA79F91A6A2B350060B316 /* Supporting Files */,
 				6ACA7A221A6A2CB00060B316 /* Resources */,
