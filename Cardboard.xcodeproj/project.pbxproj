@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DA1A6A977C00DC4726 /* SQUCameraCapturer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A6F03DD1A6A977C00DC4726 /* SQUCameraCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F03DB1A6A977C00DC4726 /* SQUCameraCapturer.m */; };
+		6A6F03DF1A6AA27C00DC4726 /* SQURenderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DE1A6AA27C00DC4726 /* SQURenderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A6F03E21A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F03E11A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m */; };
 		6ACA79FC1A6A2B350060B316 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA79FB1A6A2B350060B316 /* main.m */; };
 		6ACA7A071A6A2B350060B316 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ACA7A061A6A2B350060B316 /* Images.xcassets */; };
 		6ACA7A261A6A2CD70060B316 /* SQUAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A251A6A2CD70060B316 /* SQUAppDelegate.m */; };
@@ -65,6 +67,9 @@
 		5AC840003F6D582600D6F656 /* libPods-Cardboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cardboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A6F03DA1A6A977C00DC4726 /* SQUCameraCapturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUCameraCapturer.h; sourceTree = "<group>"; };
 		6A6F03DB1A6A977C00DC4726 /* SQUCameraCapturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUCameraCapturer.m; sourceTree = "<group>"; };
+		6A6F03DE1A6AA27C00DC4726 /* SQURenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQURenderDelegate.h; sourceTree = "<group>"; };
+		6A6F03E01A6AA39D00DC4726 /* SQUWatermelonLandRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUWatermelonLandRenderer.h; sourceTree = "<group>"; };
+		6A6F03E11A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUWatermelonLandRenderer.m; sourceTree = "<group>"; };
 		6ACA79F61A6A2B350060B316 /* Cardboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cardboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ACA79FA1A6A2B350060B316 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6ACA79FB1A6A2B350060B316 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -175,6 +180,8 @@
 		6ACA7A291A6A2EE20060B316 /* GL Rendering */ = {
 			isa = PBXGroup;
 			children = (
+				6A6F03E01A6AA39D00DC4726 /* SQUWatermelonLandRenderer.h */,
+				6A6F03E11A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m */,
 			);
 			name = "GL Rendering";
 			path = Cardboard;
@@ -217,6 +224,7 @@
 			children = (
 				6ACA7A581A6A4A0B0060B316 /* SQUGLController.h */,
 				6ACA7A591A6A4A0B0060B316 /* SQUGLController.m */,
+				6A6F03DE1A6AA27C00DC4726 /* SQURenderDelegate.h */,
 			);
 			name = Rendering;
 			sourceTree = "<group>";
@@ -255,9 +263,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6ACA7A551A6A466C0060B316 /* SQUCardboardKit.h in Headers */,
-				6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */,
 				6ACA7A371A6A461F0060B316 /* CardboardKit.h in Headers */,
+				6ACA7A551A6A466C0060B316 /* SQUCardboardKit.h in Headers */,
+				6A6F03DF1A6AA27C00DC4726 /* SQURenderDelegate.h in Headers */,
+				6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */,
 				6ACA7A5A1A6A4A0B0060B316 /* SQUGLController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +425,7 @@
 			files = (
 				6ACA7A261A6A2CD70060B316 /* SQUAppDelegate.m in Sources */,
 				6ACA79FC1A6A2B350060B316 /* main.m in Sources */,
+				6A6F03E21A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

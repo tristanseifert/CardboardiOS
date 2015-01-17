@@ -7,13 +7,13 @@
 //
 
 #import "SQUCameraCapturer.h"
+#import "SQUCardboardKit.h"
 
 #import "SQUGLController.h"
 
 /// TODO: These should be static enum define things
-#define kNodeNameCameraLeft @"kCameraNameLeft"
+#define kNodeNameCameraLeft @"kNodeNameCameraLeft"
 #define kNodeNameCameraRight @"kNodeNameCameraRight"
-#define kNodeNameCube @"kNodeNameCube"
 #define kNodeNameSpotLight @"kNodeNameSpotLight"
 #define kNodeNameSunLight @"kNodeNameSunLight"
 #define kNodeNameAmbientLight @"kNodeNameAmbientLight"
@@ -23,20 +23,38 @@
 - (void) initSceneKit;
 - (void) initNodes;
 
+- (void) updateCameraPositon:(SCNVector3) angles;
+
 @end
 
 @implementation SQUGLController
 
 /**
- * Initialiser
+ * spheren sphere cube initialiser
  */
-- (id) init {
+- (id) initWithRenderer:(id<SQURenderDelegate>) renderer {
 	if(self = [super initWithNibName:nil bundle:nil]) {
+		_renderisor = renderer;
+		
 		_offset = 0.5;
 		_initialised = NO;
+		
+		[self observeValueForKeyPath:@"cameraAngle" ofObject:[SQUCardboardKit sharedInstance] change:0 context:NULL];
 	}
 	
 	return self;
+}
+
+/**
+ * Removes observers
+ */
+- (void) dealloc {
+	@try {
+		[self removeObserver:self forKeyPath:@"cameraAngle"];
+	}
+	@catch (__unused NSException *exception) {
+		
+	}
 }
 
 /**
@@ -72,10 +90,6 @@
 		// view's BG is a grey for the divider
 		self.view.backgroundColor = [UIColor darkGrayColor];
 		
-		//
-		/*	_camera.cameraLayer.frame = CGRectMake(240, 15, 256, 256);
-		 [self.view.layer addSublayer:_camera.cameraLayer];*/
-		
 		// done with initialisation
 		_initialised = YES;
 	}
@@ -95,7 +109,6 @@
 
 - (void) didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Scene Kit
@@ -112,8 +125,6 @@
 	_renderViewLeft.antialiasingMode = SCNAntialiasingModeNone;
 	_renderViewLeft.backgroundColor = self.view.backgroundColor;
 	_renderViewLeft.delegate = self;
-	//_renderViewLeft.backgroundColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:1];
-	//_renderViewLeft.allowsCameraControl = YES;
 	
 	// set up right view
 	CGRect r = self.view.frame;
@@ -125,9 +136,6 @@
 	_renderViewRight.antialiasingMode = _renderViewLeft.antialiasingMode;
 	_renderViewRight.backgroundColor = _renderViewLeft.backgroundColor;
 	_renderViewRight.delegate = _renderViewLeft.delegate;
-	
-	//_renderViewRight.backgroundColor = [UIColor colorWithRed:0 green:1 blue:1 alpha:1];
-	//_renderViewRight.allowsCameraControl = _renderViewLeft.allowsCameraControl;
 	
 	// set up teh scene
 	_scene = [SCNScene scene];
@@ -169,45 +177,6 @@
 	
 	[_scene.rootNode addChildNode:_cam_r];
 	
-	// create a single cube
-	CGFloat boxSide = 10.0;
-	SCNBox *box = [SCNBox boxWithWidth:boxSide
-								height:boxSide
-								length:boxSide
-						 chamferRadius:0];
-	box.name = kNodeNameCube;
-	
-	NSAssert(_camera.cameraLayer, @"Camera layer must be initialised, pls.");
-	NSLog(@"camera materials before: %@", box.materials);
-
-	SCNMaterial *cameraTexture = box.firstMaterial;
-	cameraTexture.diffuse.contents = _camera.cameraLayer;
-	
-	cameraTexture.diffuse.contents = [UIImage imageNamed:@"watermelon"];
-	cameraTexture.specular.contents = [UIColor colorWithWhite:0.1 alpha:1.0];
-	box.materials = @[cameraTexture];
-	
-	SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
-	boxNode.position = SCNVector3Make(0, 0, 0);
-//	boxNode.transform = SCNMatrix4Rotate(boxNode.transform, 0, 0, 1, 0);
-	
-	NSLog(@"camera materials after: %@", box.materials);
-	[_scene.rootNode addChildNode:boxNode];
-	
-	CABasicAnimation *boxRotation =
-	[CABasicAnimation animationWithKeyPath:@"transform"];
-	boxRotation.fromValue =
-	[NSValue valueWithSCNMatrix4:SCNMatrix4Rotate(boxNode.transform, 0, 1, 1, 0)];
-	boxRotation.toValue =
-	[NSValue valueWithSCNMatrix4:SCNMatrix4Rotate(boxNode.transform, M_PI, 1, 1, 0)];
-	boxRotation.timingFunction =
-	[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-	boxRotation.repeatCount = INFINITY;
-	boxRotation.duration = 2.0;
-	
-	[boxNode addAnimation:boxRotation
-				   forKey:@"RotateCubular"];
-	
 	// A spotlight
 	SCNLight *spotLight = [SCNLight light];
 	spotLight.type = SCNLightTypeSpot;
@@ -217,21 +186,6 @@
 	spotLightNode.light = spotLight;
 	spotLightNode.position = SCNVector3Make(0, 0, 0);
 	spotLightNode.name = kNodeNameSpotLight;
-	
-/*	// Changing the color of the spotlight
-	CAKeyframeAnimation *spotColor =
-	[CAKeyframeAnimation animationWithKeyPath:@"color"];
-	spotColor.values = @[(id)[UIColor redColor],
-						 (id)[UIColor blueColor],
-						 (id)[UIColor greenColor],
-						 (id)[UIColor redColor]];
-	spotColor.timingFunction =
-	[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-	spotColor.repeatCount = INFINITY;
-	spotColor.duration = 3.0;
-	
-	[spotLight addAnimation:spotColor
-					 forKey:@"ChangeTheColorOfTheSpot"];*/
 	
 	[_cam_l addChildNode:spotLightNode];
 	[_cam_r addChildNode:[spotLightNode copy]];
@@ -257,17 +211,57 @@
 	ambientLightNode.light = ambientLight;
 	ambientLightNode.name = kNodeNameAmbientLight;
 	[_scene.rootNode addChildNode:ambientLightNode];
+	
+	// call the renderer
+	[_renderisor addNodesToScene:_scene];
 }
 
 #pragma mark - Scene Kit Delegate
+/**
+ * Something is about to be modified
+ */
 - (void) renderer:(id <SCNSceneRenderer>) aRenderer willRenderScene:(SCNScene *) scene atTime:(NSTimeInterval) time {
-	
+	if(aRenderer == _renderViewLeft) {
+		[_renderisor willRenderScene:_scene];
+	}
 }
 
+/**
+ * Scene was rendered
+ */
 - (void)renderer:(id <SCNSceneRenderer>) aRenderer didRenderScene:(SCNScene *) scene atTime:(NSTimeInterval) time {
 	// update camera
 	_cam_l.position = SCNVector3Make(-_offset, 0, 30);
-	_cam_r.position = SCNVector3Make(_offset, 0, 30);	
+	_cam_r.position = SCNVector3Make(_offset, 0, 30);
+}
+
+/**
+ * KVO
+ */
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if([keyPath isEqualToString:@"cameraAngle"]) {
+		[self updateCameraPositon:[SQUCardboardKit sharedInstance].cameraAngle];
+	} else {
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
+}
+
+/**
+ * Rotates the camera to be squelchy again.
+ */
+- (void) updateCameraPositon:(SCNVector3) angles {
+	// camera things
+	_cam_l.position = SCNVector3Make(-_offset, 0, 30);
+	_cam_r.position = SCNVector3Make(_offset, 0, 30);
+	
+	// set rotations
+	_cam_l.transform = SCNMatrix4Rotate(_cam_l.transform, angles.x, 1, 0, 0);
+	_cam_l.transform = SCNMatrix4Rotate(_cam_l.transform, angles.y, 0, 1, 0);
+	_cam_l.transform = SCNMatrix4Rotate(_cam_l.transform, angles.z, 0, 0, 1);
+	
+	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.x, 1, 0, 0);
+	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.y, 0, 1, 0);
+	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.z, 0, 0, 1);
 }
 
 #pragma mark - Properties

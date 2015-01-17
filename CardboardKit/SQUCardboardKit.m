@@ -132,7 +132,7 @@ static SQUCardboardKit *sharedInstance = nil;
             NSLog(@"Button Down");
         }
 
-        NSLog(@"Attitude yaw: %.1f, roll %.1f, pitch %.1f \n accelX: %.1f Y: %.1f Z: %.1f \n orientX: %.01f Y: %.01f Z: %.01f",yaw,roll,pitch,accelX,accelY,accelZ,orientX,orientY,orientZ);
+       // NSLog(@"Attitude yaw: %.1f, roll %.1f, pitch %.1f \n accelX: %.1f Y: %.1f Z: %.1f \n orientX: %.01f Y: %.01f Z: %.01f",yaw,roll,pitch,accelX,accelY,accelZ,orientX,orientY,orientZ);
         
         _motionDataLastVal = _motionData;
         

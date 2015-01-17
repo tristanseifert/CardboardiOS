@@ -7,6 +7,7 @@
 //
 
 #import "SQUGLController.h"
+#import "SQUWatermelonLandRenderer.h"
 
 #import "SQUAppDelegate.h"
 
@@ -15,8 +16,10 @@
 @implementation SQUAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	_watermelon = [[SQUWatermelonLandRenderer alloc] init];
+	
 	// create main controller
-	_mainController = [[SQUGLController alloc] init];
+	_mainController = [[SQUGLController alloc] initWithRenderer:_watermelon];
 	
 	// create window
 	_window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

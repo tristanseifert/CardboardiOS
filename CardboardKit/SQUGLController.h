@@ -23,9 +23,12 @@
 }
 
 @property (nonatomic, readonly) CGFloat oldBrightness;
+@property (nonatomic, readwrite) CGFloat offset;
 
 @property (nonatomic, readonly) SQUCameraCapturer *camera;
 
-@property (nonatomic, readwrite) CGFloat offset;
+@property (nonatomic, readwrite, strong) id<SQURenderDelegate> renderisor;
+
+- (id) initWithRenderer:(id<SQURenderDelegate>) renderer;
 
 @end

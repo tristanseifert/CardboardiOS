@@ -50,8 +50,8 @@
 	}
 	
 	// fix orientation
-/*	AVCaptureConnection *conn = [_output connectionWithMediaType:AVMediaTypeVideo];
-	[conn setVideoOrientation:AVCaptureVideoOrientationPortrait];*/
+	AVCaptureConnection *conn = [_output connectionWithMediaType:AVMediaTypeVideo];
+	[conn setVideoOrientation:AVCaptureVideoOrientationPortrait];
 	
 	// now, create the layer
 	_cameraLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
