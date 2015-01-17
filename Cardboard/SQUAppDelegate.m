@@ -7,31 +7,41 @@
 //
 
 #import "SQUGLController.h"
+#import "SQUFlugenRenderer.h"
 #import "SQUWatermelonLandRenderer.h"
 
 #import "SQUAppDelegate.h"
 
 #import "CardboardKit.h"
+#import <MyoKit/MyoKit.h>
 
 @implementation SQUAppDelegate
 
 - (BOOL) application:(UIApplication *) application didFinishLaunchingWithOptions:(NSDictionary *) launchOptions {
 	_watermelon = [[SQUWatermelonLandRenderer alloc] init];
+	_flugen = [[SQUFlugenRenderer alloc] init];
 	
 	// create main controller
-	_mainController = [[SQUGLController alloc] initWithRenderer:_watermelon];
+	_mainController = [[SQUGLController alloc] initWithRenderer:_flugen];
 	
 	// create window
 	_window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	_window.backgroundColor = [UIColor whiteColor];
+	_window.backgroundColor = [UIColor blackColor];
 	_window.rootViewController = _mainController;
 	[_window makeKeyAndVisible];
 	
-	// things
-	DDLogInfo(@"Initialised main UI");
-	
 	// initialise cardboard kit, pls
 	[[SQUCardboardKit sharedInstance] configureSensors];
+	
+	// no
+	NSString *meep = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
+	[[TLMHub sharedHub] setApplicationIdentifier:meep];
+	
+	// present the UI plss
+	dispatch_async(dispatch_get_main_queue(), ^{
+		UINavigationController *controller = [TLMSettingsViewController settingsInNavigationController];
+		[_mainController presentViewController:controller animated:YES completion:nil];
+	});
 	
 	return YES;
 }
