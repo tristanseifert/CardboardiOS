@@ -22,6 +22,8 @@
 	BOOL _initialised;
 }
 
+@property (nonatomic, readonly) CGFloat oldBrightness;
+
 @property (nonatomic, readonly) SQUCameraCapturer *camera;
 
 @property (nonatomic, readwrite) CGFloat offset;

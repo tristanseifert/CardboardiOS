@@ -79,10 +79,18 @@
 		// done with initialisation
 		_initialised = YES;
 	}
+	
+	// save old brightness
+	_oldBrightness = [UIScreen mainScreen].brightness;
+	
+	[UIScreen mainScreen].brightness = 0.3;
 }
 - (void) viewDidDisappear:(BOOL) animated {
 	[super viewWillAppear:animated];
 	[_camera endCapture];
+	
+	// set brightness
+	[UIScreen mainScreen].brightness = _oldBrightness;
 }
 
 - (void) didReceiveMemoryWarning {
@@ -171,11 +179,11 @@
 	
 	NSAssert(_camera.cameraLayer, @"Camera layer must be initialised, pls.");
 	NSLog(@"camera materials before: %@", box.materials);
-	
+
 	SCNMaterial *cameraTexture = box.firstMaterial;
-	//cameraTexture.diffuse.contents = _camera.cameraLayer;
+	cameraTexture.diffuse.contents = _camera.cameraLayer;
 	
-	cameraTexture.diffuse.contents = [UIImage imageNamed:@"watermelon"];
+	//cameraTexture.diffuse.contents = [UIImage imageNamed:@"watermelon"];
 	cameraTexture.specular.contents = [UIColor colorWithWhite:0.15 alpha:1.0];
 	box.materials = @[cameraTexture];
 	
