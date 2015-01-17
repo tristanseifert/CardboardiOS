@@ -122,7 +122,7 @@
 	l.size.width -= 1;
 	
 	_renderViewLeft = [[SCNView alloc] initWithFrame:l];
-	_renderViewLeft.preferredFramesPerSecond = 50;
+	_renderViewLeft.preferredFramesPerSecond = 60;
 	_renderViewLeft.antialiasingMode = SCNAntialiasingModeMultisampling2X;
 	_renderViewLeft.backgroundColor = self.view.backgroundColor;
 	_renderViewLeft.delegate = self;

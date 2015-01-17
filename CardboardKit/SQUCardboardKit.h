@@ -13,7 +13,7 @@
 
 #import "SQURenderDelegate.h"
 
-@interface SQUCardboardKit : NSObject {
+@interface SQUCardboardKit : NSObject <CLLocationManagerDelegate> {
 	
 }
 
