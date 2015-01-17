@@ -10,12 +10,13 @@
 		6ACA79FC1A6A2B350060B316 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA79FB1A6A2B350060B316 /* main.m */; };
 		6ACA7A071A6A2B350060B316 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ACA7A061A6A2B350060B316 /* Images.xcassets */; };
 		6ACA7A261A6A2CD70060B316 /* SQUAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A251A6A2CD70060B316 /* SQUAppDelegate.m */; };
-		6ACA7A2C1A6A2EF70060B316 /* SQUGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A2B1A6A2EF70060B316 /* SQUGLController.m */; };
 		6ACA7A371A6A461F0060B316 /* CardboardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ACA7A361A6A461F0060B316 /* CardboardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6ACA7A491A6A461F0060B316 /* CardboardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACA7A321A6A461F0060B316 /* CardboardKit.framework */; };
 		6ACA7A4A1A6A461F0060B316 /* CardboardKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACA7A321A6A461F0060B316 /* CardboardKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6ACA7A551A6A466C0060B316 /* SQUCardboardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ACA7A531A6A466C0060B316 /* SQUCardboardKit.h */; };
+		6ACA7A551A6A466C0060B316 /* SQUCardboardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ACA7A531A6A466C0060B316 /* SQUCardboardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6ACA7A561A6A466C0060B316 /* SQUCardboardKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A541A6A466C0060B316 /* SQUCardboardKit.m */; };
+		6ACA7A5A1A6A4A0B0060B316 /* SQUGLController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ACA7A581A6A4A0B0060B316 /* SQUGLController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6ACA7A5B1A6A4A0B0060B316 /* SQUGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA7A591A6A4A0B0060B316 /* SQUGLController.m */; };
 		A0C86FAD07A954B28F38FCA6 /* libPods-Cardboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC840003F6D582600D6F656 /* libPods-Cardboard.a */; };
 /* End PBXBuildFile section */
 
@@ -53,13 +54,13 @@
 		6ACA7A241A6A2CD70060B316 /* SQUAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUAppDelegate.h; sourceTree = "<group>"; };
 		6ACA7A251A6A2CD70060B316 /* SQUAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUAppDelegate.m; sourceTree = "<group>"; };
 		6ACA7A281A6A2E590060B316 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		6ACA7A2A1A6A2EF70060B316 /* SQUGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUGLController.h; sourceTree = "<group>"; };
-		6ACA7A2B1A6A2EF70060B316 /* SQUGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUGLController.m; sourceTree = "<group>"; };
 		6ACA7A321A6A461F0060B316 /* CardboardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardboardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ACA7A351A6A461F0060B316 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6ACA7A361A6A461F0060B316 /* CardboardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardboardKit.h; sourceTree = "<group>"; };
 		6ACA7A531A6A466C0060B316 /* SQUCardboardKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUCardboardKit.h; sourceTree = "<group>"; };
 		6ACA7A541A6A466C0060B316 /* SQUCardboardKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUCardboardKit.m; sourceTree = "<group>"; };
+		6ACA7A581A6A4A0B0060B316 /* SQUGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUGLController.h; sourceTree = "<group>"; };
+		6ACA7A591A6A4A0B0060B316 /* SQUGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUGLController.m; sourceTree = "<group>"; };
 		FC49DE83CC7936B6A085A50D /* Pods-Cardboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cardboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cardboard/Pods-Cardboard.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,8 +145,6 @@
 		6ACA7A291A6A2EE20060B316 /* GL Rendering */ = {
 			isa = PBXGroup;
 			children = (
-				6ACA7A2A1A6A2EF70060B316 /* SQUGLController.h */,
-				6ACA7A2B1A6A2EF70060B316 /* SQUGLController.m */,
 			);
 			name = "GL Rendering";
 			path = Cardboard;
@@ -154,10 +153,9 @@
 		6ACA7A331A6A461F0060B316 /* CardboardKit */ = {
 			isa = PBXGroup;
 			children = (
-				6ACA7A361A6A461F0060B316 /* CardboardKit.h */,
+				6ACA7A571A6A4A010060B316 /* Rendering */,
+				6ACA7A5C1A6A4A0F0060B316 /* Motion */,
 				6ACA7A341A6A461F0060B316 /* Supporting Files */,
-				6ACA7A531A6A466C0060B316 /* SQUCardboardKit.h */,
-				6ACA7A541A6A466C0060B316 /* SQUCardboardKit.m */,
 			);
 			path = CardboardKit;
 			sourceTree = "<group>";
@@ -165,6 +163,7 @@
 		6ACA7A341A6A461F0060B316 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6ACA7A361A6A461F0060B316 /* CardboardKit.h */,
 				6ACA7A351A6A461F0060B316 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -179,6 +178,24 @@
 				6ACA7A221A6A2CB00060B316 /* Resources */,
 			);
 			name = "Cardboard App";
+			sourceTree = "<group>";
+		};
+		6ACA7A571A6A4A010060B316 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				6ACA7A581A6A4A0B0060B316 /* SQUGLController.h */,
+				6ACA7A591A6A4A0B0060B316 /* SQUGLController.m */,
+			);
+			name = Rendering;
+			sourceTree = "<group>";
+		};
+		6ACA7A5C1A6A4A0F0060B316 /* Motion */ = {
+			isa = PBXGroup;
+			children = (
+				6ACA7A531A6A466C0060B316 /* SQUCardboardKit.h */,
+				6ACA7A541A6A466C0060B316 /* SQUCardboardKit.m */,
+			);
+			name = Motion;
 			sourceTree = "<group>";
 		};
 		E7453ECFD21C2CC925C3893D /* Frameworks */ = {
@@ -198,6 +215,7 @@
 			files = (
 				6ACA7A551A6A466C0060B316 /* SQUCardboardKit.h in Headers */,
 				6ACA7A371A6A461F0060B316 /* CardboardKit.h in Headers */,
+				6ACA7A5A1A6A4A0B0060B316 /* SQUGLController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,7 +372,6 @@
 			files = (
 				6ACA7A261A6A2CD70060B316 /* SQUAppDelegate.m in Sources */,
 				6ACA79FC1A6A2B350060B316 /* main.m in Sources */,
-				6ACA7A2C1A6A2EF70060B316 /* SQUGLController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ACA7A5B1A6A4A0B0060B316 /* SQUGLController.m in Sources */,
 				6ACA7A561A6A466C0060B316 /* SQUCardboardKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

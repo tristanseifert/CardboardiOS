@@ -10,7 +10,7 @@
 
 #import "SQUAppDelegate.h"
 
-#import "SQUCardboardKit.h"
+#import "CardboardKit.h"
 
 @implementation SQUAppDelegate
 
