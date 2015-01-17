@@ -8,6 +8,8 @@
 
 #import "SQUCardboardKit.h"
 
+#define kMotionUpdateInterval 0.05
+
 static SQUCardboardKit *sharedInstance = nil;
 
 @interface SQUCardboardKit ()
@@ -75,7 +77,8 @@ static SQUCardboardKit *sharedInstance = nil;
 
 -(void)configureSensors{
     _motionManager = [[CMMotionManager alloc]init];
-    _motionManager.deviceMotionUpdateInterval = .1;
+    _motionManager.deviceMotionUpdateInterval = kMotionUpdateInterval;
+	
     if(_motionManager.deviceMotionAvailable){ //sensor data available, they can use this feature (and app)
         [self addObserver:self forKeyPath:@"motionData" options:0 context:nil];
         [self addObserver:self forKeyPath:@"magnetometerData" options:0 context:nil];
@@ -93,7 +96,7 @@ static SQUCardboardKit *sharedInstance = nil;
         }];
     
        /* //update magnetometer data
-        _motionManager.magnetometerUpdateInterval = .1; // 1/10 sec update interval
+        _motionManager.magnetometerUpdateInterval = kMotionUpdateInterval; // 1/10 sec update interval
         
         [_motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *data, NSError *error) {
             if (error == nil){
@@ -111,7 +114,7 @@ static SQUCardboardKit *sharedInstance = nil;
 	_cameraAngle = SCNVector3Zero;
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+-(void) observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context{
     if([keyPath isEqualToString:@"magnetometerData"]){ //warning: occasionally button will trigger twice for one direction--be sure to cope with this otherwise shit will fly.
         
     }
