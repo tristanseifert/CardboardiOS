@@ -183,7 +183,7 @@
 	SCNMaterial *cameraTexture = box.firstMaterial;
 	cameraTexture.diffuse.contents = _camera.cameraLayer;
 	
-	//cameraTexture.diffuse.contents = [UIImage imageNamed:@"watermelon"];
+	cameraTexture.diffuse.contents = [UIImage imageNamed:@"watermelon"];
 	cameraTexture.specular.contents = [UIColor colorWithWhite:0.15 alpha:1.0];
 	box.materials = @[cameraTexture];
 	
