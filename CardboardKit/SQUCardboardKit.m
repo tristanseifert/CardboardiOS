@@ -106,6 +106,9 @@ static SQUCardboardKit *sharedInstance = nil;
             }
         }];*/
     }
+	
+	// this seems like a good time to do this !??!?!?//!/1//111
+	_cameraAngle = SCNVector3Zero;
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -113,10 +116,10 @@ static SQUCardboardKit *sharedInstance = nil;
         
     }
     if([keyPath isEqualToString:@"motionData"]){ //update the position
-        float yaw = (_motionData.attitude.yaw - _motionDataLastVal.attitude.yaw ) * (180.0/M_PI);
-        float roll = (_motionData.attitude.roll - _motionDataLastVal.attitude.roll ) * (180.0/M_PI);
-        float pitch = (_motionData.attitude.pitch - _motionDataLastVal.attitude.pitch ) * (180.0/M_PI);
-        
+		float yaw = (_motionData.attitude.yaw - _motionDataLastVal.attitude.yaw);
+		float roll = (_motionData.attitude.roll - _motionDataLastVal.attitude.roll );
+		float pitch = (_motionData.attitude.pitch - _motionDataLastVal.attitude.pitch );
+		
         float accelX = (_motionData.userAcceleration.x - _motionDataLastVal.userAcceleration.x );
         float accelY = (_motionData.userAcceleration.y - _motionDataLastVal.userAcceleration.y );
         float accelZ = (_motionData.userAcceleration.z - _motionDataLastVal.userAcceleration.z );
@@ -132,10 +135,18 @@ static SQUCardboardKit *sharedInstance = nil;
             NSLog(@"Button Down");
         }
 
-       // NSLog(@"Attitude yaw: %.1f, roll %.1f, pitch %.1f \n accelX: %.1f Y: %.1f Z: %.1f \n orientX: %.01f Y: %.01f Z: %.01f",yaw,roll,pitch,accelX,accelY,accelZ,orientX,orientY,orientZ);
+       printf("Attitude yaw: %.1f, roll %.1f, pitch %.1f \n accelX: %.1f Y: %.1f Z: %.1f \n orientX: %.01f Y: %.01f Z: %.01f\n",yaw,roll,pitch,accelX,accelY,accelZ,orientX,orientY,orientZ);
         
         _motionDataLastVal = _motionData;
-        
+		
+		// quadrangulum !!!
+		[self willChangeValueForKey:@"cameraAngle"];
+		_cameraAngle.x += pitch;
+		_cameraAngle.y += yaw;
+		_cameraAngle.z += roll;
+		
+//		_cameraAngle = SCNVector3Make(pitch, yaw, roll);
+		[self didChangeValueForKey:@"cameraAngle"];
     }
 }
 

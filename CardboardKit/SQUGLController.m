@@ -36,10 +36,10 @@
 	if(self = [super initWithNibName:nil bundle:nil]) {
 		_renderisor = renderer;
 		
-		_offset = 0.5;
+		_offset = 0.75;
 		_initialised = NO;
 		
-		[self observeValueForKeyPath:@"cameraAngle" ofObject:[SQUCardboardKit sharedInstance] change:0 context:NULL];
+		[[SQUCardboardKit sharedInstance] addObserver:self forKeyPath:@"cameraAngle" options:0 context:NULL];
 	}
 	
 	return self;
@@ -50,7 +50,7 @@
  */
 - (void) dealloc {
 	@try {
-		[self removeObserver:self forKeyPath:@"cameraAngle"];
+		[[SQUCardboardKit sharedInstance] removeObserver:self forKeyPath:@"cameraAngle"];
 	}
 	@catch (__unused NSException *exception) {
 		
@@ -122,9 +122,11 @@
 	l.size.width -= 1;
 	
 	_renderViewLeft = [[SCNView alloc] initWithFrame:l];
+	_renderViewLeft.preferredFramesPerSecond = 50;
 	_renderViewLeft.antialiasingMode = SCNAntialiasingModeNone;
 	_renderViewLeft.backgroundColor = self.view.backgroundColor;
 	_renderViewLeft.delegate = self;
+	_renderViewLeft.showsStatistics = YES;
 	
 	// set up right view
 	CGRect r = self.view.frame;
@@ -133,9 +135,11 @@
 	r.origin.x = r.size.width + 1;
 	
 	_renderViewRight = [[SCNView alloc] initWithFrame:r];
+	_renderViewRight.preferredFramesPerSecond = _renderViewLeft.preferredFramesPerSecond;
 	_renderViewRight.antialiasingMode = _renderViewLeft.antialiasingMode;
 	_renderViewRight.backgroundColor = _renderViewLeft.backgroundColor;
 	_renderViewRight.delegate = _renderViewLeft.delegate;
+	_renderViewRight.showsStatistics = YES;
 	
 	// set up teh scene
 	_scene = [SCNScene scene];
@@ -255,13 +259,18 @@
 	_cam_r.position = SCNVector3Make(_offset, 0, 30);
 	
 	// set rotations
+/*	_cam_l.transform = SCNMatrix4Translate(SCNMatrix4Identity, -_offset, 0, 30);
 	_cam_l.transform = SCNMatrix4Rotate(_cam_l.transform, angles.x, 1, 0, 0);
 	_cam_l.transform = SCNMatrix4Rotate(_cam_l.transform, angles.y, 0, 1, 0);
 	_cam_l.transform = SCNMatrix4Rotate(_cam_l.transform, angles.z, 0, 0, 1);
 	
+	_cam_r.transform = SCNMatrix4Translate(SCNMatrix4Identity, _offset, 0, 30);
 	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.x, 1, 0, 0);
 	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.y, 0, 1, 0);
-	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.z, 0, 0, 1);
+	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.z, 0, 0, 1);*/
+	_cam_l.eulerAngles = angles;
+	
+	_cam_r.eulerAngles = angles;
 }
 
 #pragma mark - Properties
