@@ -63,7 +63,7 @@ static SQUCardboardKit *sharedInstance = nil;
  * Receives heading changes
  
 -(void) locationManager:(CLLocationManager *) manager didUpdateHeading:(CLHeading *) newHeading{
-	NSLog(@"Heading: %@",newHeading);
+	//NSLog(@"Heading: %@",newHeading);
 	
 	if(abs(180.0-abs(newHeading.y)) <= 40.0){
 		NSLog(@"\n\n\nBUTTON PRESS!!!!\n\n\n");

@@ -11,7 +11,6 @@
 
 int main(int argc, char * argv[]) {
 	@autoreleasepool {
-		// create CocoaLumberjack
 		// Set up logger
 		[DDLog addLogger:[DDASLLogger sharedInstance]];
 		
