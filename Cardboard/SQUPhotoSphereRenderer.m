@@ -17,7 +17,7 @@
 - (void) addNodesToScene:(SCNScene *) scene {
 	// create spherical geometry
 	_sphere = [SCNSphere sphereWithRadius:200.f];
-	_sphere.geodesic = YES;
+	//_sphere.geodesic = YES;
 	
 	_sphere.firstMaterial.doubleSided = YES;
 	_sphere.firstMaterial.diffuse.contents = [UIColor yellowColor];
