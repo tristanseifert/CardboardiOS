@@ -45,7 +45,7 @@
 	scene.background.contents = @[@"skybox_back", @"skybox_front", @"skybox_top", @"skybox_bottom", @"skybox_right", @"skybox_left"];
 /*
 	// asdjasklfjakls;fdas
-	NSURL *url = [[NSBundle mainBundle] URLForResource:@"f-14-super-tomcat" withExtension:@"dae"];
+	/*NSURL *url = [[NSBundle mainBundle] URLForResource:@"f-14-super-tomcat" withExtension:@"dae"];
 	SCNNode *n = [[SQUEntityLoader sharedInstance] nodeFromFile:url];
 	
 	DDLogVerbose(@"%@", n);
@@ -69,7 +69,12 @@
 }
 
 #pragma mark - Myo
+/**
+ * Initialises Myo
+ */
 - (void) doMyoInit {
+	return;
+	
 	// Set up Myo lock policy
 	[TLMHub sharedHub].lockingPolicy = TLMLockingPolicyNone;
 	

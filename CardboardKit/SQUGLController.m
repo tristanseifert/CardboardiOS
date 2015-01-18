@@ -125,10 +125,12 @@
 	_renderViewLeft.preferredFramesPerSecond = 60;
 	_renderViewLeft.antialiasingMode = SCNAntialiasingModeMultisampling2X;
 	
-	_renderViewLeft.backgroundColor = self.view.backgroundColor;
+	_renderViewLeft.backgroundColor = [UIColor yellowColor];
 	
 	_renderViewLeft.delegate = self;
 	_renderViewLeft.showsStatistics = YES;
+	
+	_renderViewLeft.allowsCameraControl = YES;
 	
 	// set up right view
 	CGRect r = self.view.frame;
@@ -279,9 +281,9 @@
 	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.x, 1, 0, 0);
 	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.y, 0, 1, 0);
 	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.z, 0, 0, 1);*/
-	_cam_l.eulerAngles = angles;
 	
-	_cam_r.eulerAngles = angles;
+/*	_cam_l.eulerAngles = angles;
+	_cam_r.eulerAngles = angles;*/
 }
 
 #pragma mark - Properties

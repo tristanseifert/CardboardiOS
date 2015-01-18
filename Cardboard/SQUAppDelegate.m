@@ -9,6 +9,7 @@
 #import "SQUGLController.h"
 #import "SQUFlugenRenderer.h"
 #import "SQUWatermelonLandRenderer.h"
+#import "SQUPhotoSphereRenderer.h"
 
 #import "SQUAppDelegate.h"
 
@@ -30,11 +31,11 @@
 	
 	// create demo controllers
 	_watermelon = [[SQUWatermelonLandRenderer alloc] init];
-	
 	_flugen = [[SQUFlugenRenderer alloc] init];
+	_sphere = [[SQUPhotoSphereRenderer alloc] init];
 	
 	// create main controller
-	_mainController = [[SQUGLController alloc] initWithRenderer:_flugen];
+	_mainController = [[SQUGLController alloc] initWithRenderer:_sphere];
 	_flugen.rootVC = _mainController;
 	
 	// create window
