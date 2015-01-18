@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Tristan Seifert. All rights reserved.
 //
 
+#import "SQUEntityLoader.h"
 #import "SQUFlugenRenderer.h"
 
 #import <MyoKit/MyoKit.h>
@@ -39,23 +40,17 @@
  * When the controller is initialised, this method allows the renderer to add
  * its nodes.
  */
-- (void) addNodesToScene:(SCNScene *) scene {
-    NSError *err = nil;
-    
+- (void) addNodesToScene:(SCNScene *) scene {    
 	// create skybox
 	scene.background.contents = @[@"skybox_back", @"skybox_front", @"skybox_top", @"skybox_bottom", @"skybox_right", @"skybox_left"];
-    //if([self.typeOfPlane isEqualToString:@"F-14"]){    
-    SCNSceneSource *sceneLoader = [SCNSceneSource sceneSourceWithURL:[[NSBundle mainBundle] URLForResource:@"f-14-super-tomcat" withExtension:@"dae"] options:nil];
-    SCNScene *planeScn = [sceneLoader sceneWithOptions:@{} error:&err];
-    NSAssert(err == nil, @"error loading pls: %@", err);
-    
-//        plane.rootNode.position = SCNVector3Make(-10, -10, 0);
-    //}
-    for(SCNNode *node in planeScn.rootNode.childNodes){
-        NSLog(@"plane is %@", node);
-        [scene.rootNode addChildNode:node];
-    }
-    
+
+	// asdjasklfjakls;fdas
+	NSURL *url = [[NSBundle mainBundle] URLForResource:@"f-14-super-tomcat" withExtension:@"dae"];
+	SCNNode *n = [[SQUEntityLoader sharedInstance] nodeFromFile:url];
+	
+	DDLogVerbose(@"%@", n);
+	
+	[scene.rootNode addChildNode:n];
 }
 
 /**
