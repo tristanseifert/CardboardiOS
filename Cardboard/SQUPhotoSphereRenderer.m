@@ -22,7 +22,10 @@
 	
 	SCNNode *node = [SCNNode nodeWithGeometry:_sphere];
 	node.position = SCNVector3Make(0, 0, -10);
-	[scene.rootNode addChildNode:node];
+	//[scene.rootNode addChildNode:node];
+	
+	// fork
+	scene.background.contents = @[@"forkTower1", @"forkTower2", @"forkTower3", @"forkTower4", @"forkTower5", @"forkTower6"];
 	
 	// create cube
 	/*CGFloat boxSide = 10.0;
