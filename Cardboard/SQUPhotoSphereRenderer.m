@@ -16,11 +16,12 @@
  */
 - (void) addNodesToScene:(SCNScene *) scene {
 	// create spherical geometry
-	_sphere = [SCNSphere sphereWithRadius:10.f];
+	_sphere = [SCNSphere sphereWithRadius:15.f];
 	_sphere.firstMaterial.diffuse.contents = [UIColor redColor];
+	_sphere.firstMaterial.cullMode = SCNCullFront;
 	
 	SCNNode *node = [SCNNode nodeWithGeometry:_sphere];
-	node.position = SCNVector3Make(0, 0, 0);
+	node.position = SCNVector3Make(0, 0, -10);
 	[scene.rootNode addChildNode:node];
 	
 	// create cube
