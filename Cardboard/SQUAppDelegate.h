@@ -17,10 +17,15 @@
 	SQUWatermelonLandRenderer *_watermelon;
 	SQUFlugenRenderer *_flugen;
 	SQUPhotoSphereRenderer *_sphere;
+    
+    UIScrollView *scrollView;
 }
 
 @property (nonatomic) UIWindow *window;
 @property (nonatomic) SQUGLController *mainController;
+@property BOOL newLaunch;
+@property float scrollLocation;
 
+-(void)touchedImageWithTag:(int)tag;
 
 @end
