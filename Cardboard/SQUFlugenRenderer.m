@@ -9,6 +9,7 @@
 #import "SQUFlugenRenderer.h"
 
 #import <MyoKit/MyoKit.h>
+#import <KVNProgress/KVNProgress.h>
 
 @interface SQUFlugenRenderer ()
 
@@ -25,7 +26,7 @@
  */
 - (id) init {
 	if(self = [super init]) {
-		[self setUpMyoConnection];
+		
 	}
 	
 	return self;
@@ -58,49 +59,65 @@
 }
 
 #pragma mark - Myo
-- (void) setUpMyoConnection {
-	// Data notifications are received through NSNotificationCenter.
-	// Posted whenever a TLMMyo connects
+- (void) doMyoInit {
+	// Set up Myo lock policy
+	[TLMHub sharedHub].lockingPolicy = TLMLockingPolicyNone;
+	
+	// Are any Myos known to the device?
+	if([TLMHub sharedHub].myoDevices.count == 0) {
+		UINavigationController *controller = [TLMSettingsViewController settingsInNavigationController];
+		[_rootVC presentViewController:controller animated:YES completion:nil];
+		
+		DDLogVerbose(@"Opening Myo searching controller…");
+	} else {
+		[[TLMHub sharedHub] attachToAdjacent];
+		DDLogVerbose(@"Attaching to adjacent Myos");
+		
+		[KVNProgress showWithStatus:@"Connecting to Myo…"];
+	}
+	
+	// Set up the notifications
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(didAttachDevice:)
+												 name:TLMHubDidAttachDeviceNotification
+											   object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(didDetachDevice:)
+												 name:TLMHubDidDetachDeviceNotification
+											   object:nil];
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didConnectDevice:)
 												 name:TLMHubDidConnectDeviceNotification
 											   object:nil];
-	// Posted whenever a TLMMyo disconnects.
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didDisconnectDevice:)
 												 name:TLMHubDidDisconnectDeviceNotification
 											   object:nil];
-	// Posted whenever the user does a successful Sync Gesture.
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didSyncArm:)
 												 name:TLMMyoDidReceiveArmSyncEventNotification
 											   object:nil];
-	// Posted whenever Myo loses sync with an arm (when Myo is taken off, or moved enough on the user's arm).
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didUnsyncArm:)
 												 name:TLMMyoDidReceiveArmUnsyncEventNotification
 											   object:nil];
-	// Posted whenever Myo is unlocked and the application uses TLMLockingPolicyStandard.
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didUnlockDevice:)
 												 name:TLMMyoDidReceiveUnlockEventNotification
 											   object:nil];
-	// Posted whenever Myo is locked and the application uses TLMLockingPolicyStandard.
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didLockDevice:)
 												 name:TLMMyoDidReceiveLockEventNotification
 											   object:nil];
-	// Posted when a new orientation event is available from a TLMMyo. Notifications are posted at a rate of 50 Hz.
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didReceiveOrientationEvent:)
 												 name:TLMMyoDidReceiveOrientationEventNotification
 											   object:nil];
-	// Posted when a new accelerometer event is available from a TLMMyo. Notifications are posted at a rate of 50 Hz.
-	[[NSNotificationCenter defaultCenter] addObserver:self
+	/*[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didReceiveAccelerometerEvent:)
 												 name:TLMMyoDidReceiveAccelerometerEventNotification
-											   object:nil];
-	// Posted when a new pose is available from a TLMMyo.
+											   object:nil];*/
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didReceivePoseChange:)
 												 name:TLMMyoDidReceivePoseChangedNotification
@@ -108,45 +125,91 @@
 }
 
 #pragma mark - Mayo Notifications
+/**
+ * Device was attached
+ */
+- (void) didAttachDevice:(NSNotification *) notification {
+	DDLogWarn(@"Device Attached");
+}
+
+/**
+ * Device has been detached.
+ */
+- (void) didDetachDevice:(NSNotification *) notification {
+	DDLogWarn(@"Device Detached!");
+}
+
+/**
+ * Myo has been connected, and needs the sync gesture to be performed
+ */
 - (void) didConnectDevice:(NSNotification *) notification {
 	DDLogVerbose(@"Myo Connected: Perform Sync Gesture");
+	
+	[_rootVC dismissViewControllerAnimated:YES completion:NULL];
+	[KVNProgress showSuccessWithStatus:@"Perform Sync Gesture"];
 }
 
+/**
+ * Myo has disconnected
+ */
 - (void) didDisconnectDevice:(NSNotification *) notification {
 	DDLogVerbose(@"Myo Disconnected");
+	
+	UINavigationController *controller = [TLMSettingsViewController settingsInNavigationController];
+	[_rootVC presentViewController:controller animated:YES completion:nil];
 }
 
+/**
+ * Device was unlocked by gesture
+ */
 - (void) didUnlockDevice:(NSNotification *) notification {
 	DDLogVerbose(@"Myo Unlocked");
 }
 
+/**
+ * Device was locked
+ */
 - (void) didLockDevice:(NSNotification *) notification {
 	DDLogVerbose(@"Myo Locked");
 }
 
+/**
+ * Called when the arm is synchronised.
+ */
 - (void) didSyncArm:(NSNotification *) notification {
-	// Retrieve the arm event from the notification's userInfo with the kTLMKeyArmSyncEvent key.
 	TLMArmSyncEvent *armEvent = notification.userInfo[kTLMKeyArmSyncEvent];
 	
 	// Update the armLabel with arm information.
-	DDLogVerbose(@"%@ Arm, %@", (TLMArmRight ? @"Right" : @"Left"), (TLMArmXDirectionTowardWrist ? @"Toward Wrist" : @"Toward Elbow"));
+	DDLogVerbose(@"%@ Arm, %@", ((armEvent.arm == TLMArmRight) ? @"Right" : @"Left"), ((armEvent.xDirection == TLMArmXDirectionTowardWrist) ? @"Toward Wrist" : @"Toward Elbow"));
 }
 
+/**
+ * Called when the arm needs to be resynchronised.
+ */
 - (void) didUnsyncArm:(NSNotification *) notification {
 	DDLogWarn(@"Perform Sync Gesture !!!");
+	
+	[KVNProgress showErrorWithStatus:@"Perform Sync Gesture"];
 }
 
+/**
+ * New orientation: roll, pitch, yaw
+ */
 - (void) didReceiveOrientationEvent:(NSNotification *) notification {
-	// Retrieve the orientation from the NSNotification's userInfo with the kTLMKeyOrientationEvent key.
 	TLMOrientationEvent *orientationEvent = notification.userInfo[kTLMKeyOrientationEvent];
-	
-	// Create Euler angles from the quaternion of the orientation.
 	TLMEulerAngles *angles = [TLMEulerAngles anglesWithQuaternion:orientationEvent.quaternion];
 	
-	//DDLogInfo(@"Orientation Angles: %@", angles);
+	DDLogVerbose(@"roll = %.4f, yaw = %.4f, pitch = %.4f", angles.roll.degrees, angles.yaw.degrees, angles.pitch.degrees);
+	
+	// use pitch to fly up/down (negative = up, positive = down)
+	
+	// roll to left/right:
 }
 
-- (void) didReceiveAccelerometerEvent:(NSNotification *) notification {
+/**
+ * Quantity of acceleration
+ */
+/*- (void) didReceiveAccelerometerEvent:(NSNotification *) notification {
 	// Retrieve the accelerometer event from the NSNotification's userInfo with the kTLMKeyAccelerometerEvent.
 	TLMAccelerometerEvent *accelerometerEvent = notification.userInfo[kTLMKeyAccelerometerEvent];
 	
@@ -155,9 +218,11 @@
 	
 	// Calculate the magnitude of the acceleration vector.
 	float magnitude = TLMVector3Length(accelerationVector);
-	//DDLogInfo(@"Acceleration Magnitude: %f", magnitude);
-}
+}*/
 
+/**
+ * Different pose
+ */
 - (void) didReceivePoseChange:(NSNotification *) notification {
 	// Retrieve the pose from the NSNotification's userInfo with the kTLMKeyPose key.
 	TLMPose *pose = notification.userInfo[kTLMKeyPose];
@@ -189,7 +254,7 @@
 	// Unlock the Myo whenever we receive a pose
 	if (pose.type == TLMPoseTypeUnknown || pose.type == TLMPoseTypeRest) {
 		// Causes the Myo to lock after a short period.
-		[pose.myo unlockWithType:TLMUnlockTypeTimed];
+		[pose.myo unlockWithType:TLMUnlockTypeHold];
 	} else {
 		// Keeps the Myo unlocked until specified.
 		// This is required to keep Myo unlocked while holding a pose, but if a pose is not being held, use

@@ -5,6 +5,7 @@
 target 'Cardboard' do
 
 pod 'CocoaLumberjack', '2.0.0-rc'
+pod 'KVNProgress', '~> 2.1'
 
 end
 

@@ -14,4 +14,8 @@
 	
 }
 
+@property (nonatomic, readwrite) UIViewController *rootVC;
+
+- (void) doMyoInit;
+
 @end
