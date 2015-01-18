@@ -15,14 +15,14 @@
  * its nodes.
  */
 - (void) addNodesToScene:(SCNScene *) scene {
-	// create spherical geometry
+	/*// create spherical geometry
 	_sphere = [SCNSphere sphereWithRadius:15.f];
 	_sphere.firstMaterial.diffuse.contents = [UIColor redColor];
 	_sphere.firstMaterial.cullMode = SCNCullFront;
 	
 	SCNNode *node = [SCNNode nodeWithGeometry:_sphere];
 	node.position = SCNVector3Make(0, 0, -10);
-	[scene.rootNode addChildNode:node];
+	[scene.rootNode addChildNode:node];*/
 	
 	// create cube
 	/*CGFloat boxSide = 10.0;
@@ -42,6 +42,8 @@
 	box.materials = @[watermelonTexture];
 	
 	[scene.rootNode addChildNode:boxNode];*/
+    //scene.background.contents = @[@"1",@"2",@"3",@"4",@"5",@"6"];
+    scene.background.contents = @[@"skybox_back", @"skybox_front", @"skybox_top", @"skybox_bottom", @"skybox_right", @"skybox_left"];
 }
 
 /**

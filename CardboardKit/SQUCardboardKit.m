@@ -20,6 +20,8 @@ static SQUCardboardKit *sharedInstance = nil;
 @property CMMagnetometerData *magnetometerData;
 @property float magnetometerLastVal;
 
+@property BOOL buttonPress;
+
 @property (strong) CMMotionManager *motionManager;
 
 @end
@@ -76,6 +78,8 @@ static SQUCardboardKit *sharedInstance = nil;
  */
 
 -(void)configureSensors{
+    _buttonPress = NO;
+    
     _motionManager = [[CMMotionManager alloc]init];
     _motionManager.deviceMotionUpdateInterval = kMotionUpdateInterval;
 	
@@ -116,20 +120,29 @@ static SQUCardboardKit *sharedInstance = nil;
 
 -(void) observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context{
     if([keyPath isEqualToString:@"magnetometerData"]){ //warning: occasionally button will trigger twice for one direction--be sure to cope with this otherwise shit will fly.
-        if(_magnetometerData.magneticField.z-_magnetometerLastVal>=200 && _magnetometerData.magneticField.z!=0){
-            NSLog(@"Button Up");
-        }
         if(_magnetometerLastVal-_magnetometerData.magneticField.z>=200 && _magnetometerLastVal!=0){
+            NSLog(@"Button Up");
+            [self willChangeValueForKey:@"buttonPress"];
+            _buttonPress = YES;
+            [self didChangeValueForKey:@"buttonPress"];
+        }
+        if(_magnetometerData.magneticField.z-_magnetometerLastVal>=200 && _magnetometerData.magneticField.z!=0){
+            [self willChangeValueForKey:@"buttonPress"];
+            if(_buttonPress == YES){
+                _buttonPress = NO;
+            }
+            [self didChangeValueForKey:@"buttonPress"];
             NSLog(@"Button Down");
         }
         _magnetometerLastVal = _magnetometerData.magneticField.z;
     }
+    
     if([keyPath isEqualToString:@"motionData"]){ //update the position
 		float yaw = (_motionData.attitude.yaw - _motionDataLastVal.attitude.yaw);
 		float roll = -(_motionData.attitude.roll - _motionDataLastVal.attitude.roll );
 		float pitch = (_motionData.attitude.pitch - _motionDataLastVal.attitude.pitch );
 		
-        /*float accelX = (_motionData.userAcceleration.x - _motionDataLastVal.userAcceleration.x );
+        /* float accelX = (_motionData.userAcceleration.x - _motionDataLastVal.userAcceleration.x );
         float accelY = (_motionData.userAcceleration.y - _motionDataLastVal.userAcceleration.y );
         float accelZ = (_motionData.userAcceleration.z - _motionDataLastVal.userAcceleration.z );
         

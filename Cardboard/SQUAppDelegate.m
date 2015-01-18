@@ -35,7 +35,7 @@
 	_sphere = [[SQUPhotoSphereRenderer alloc] init];
 	
 	// create main controller
-	_mainController = [[SQUGLController alloc] initWithRenderer:_sphere];
+	_mainController = [[SQUGLController alloc] initWithRenderer:_flugen];
 	_flugen.rootVC = _mainController;
 	
 	// create window

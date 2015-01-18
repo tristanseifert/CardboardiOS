@@ -63,7 +63,7 @@
 	[scene.rootNode addChildNode:sphereNode];
 	
 	// create skybox
-	scene.background.contents = @[@"skybox_back", @"skybox_front", @"skybox_top", @"skybox_bottom", @"skybox_right", @"skybox_left"];
+	//scene.background.contents = @[@"skybox_back", @"skybox_front", @"skybox_top", @"skybox_bottom", @"skybox_right", @"skybox_left"];
 
 }
 

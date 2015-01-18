@@ -11,7 +11,7 @@
 #import "CardboardKit.h"
 
 @interface SQUFlugenRenderer : NSObject <SQURenderDelegate> {
-    SCNScene *plane;
+    SCNScene *_scene;
 }
 
 @property (nonatomic, readwrite) UIViewController *rootVC;
