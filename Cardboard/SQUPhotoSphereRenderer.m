@@ -17,6 +17,8 @@
 - (void) addNodesToScene:(SCNScene *) scene {
 	// create spherical geometry
 	_sphere = [SCNSphere sphereWithRadius:200.f];
+	_sphere.geodesic = YES;
+	
 	_sphere.firstMaterial.doubleSided = YES;
 	_sphere.firstMaterial.diffuse.contents = [UIImage imageNamed:@"forkSphere"];
 	_sphere.firstMaterial.diffuse.contentsTransform = SCNMatrix4Identity;
