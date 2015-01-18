@@ -30,6 +30,7 @@
 		6ACA7A691A6A50A50060B316 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		A0C86FAD07A954B28F38FCA6 /* libPods-Cardboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC840003F6D582600D6F656 /* libPods-Cardboard.a */; };
 		D7192FB71A6A66CF0019AF76 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7192FB61A6A66CF0019AF76 /* CoreMotion.framework */; };
+		D7B8EB351A6B3094001EC749 /* f-14-super-tomcat.dae in Resources */ = {isa = PBXBuildFile; fileRef = D7B8EB341A6B3094001EC749 /* f-14-super-tomcat.dae */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		6ACA7A581A6A4A0B0060B316 /* SQUGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUGLController.h; sourceTree = "<group>"; };
 		6ACA7A591A6A4A0B0060B316 /* SQUGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUGLController.m; sourceTree = "<group>"; };
 		D7192FB61A6A66CF0019AF76 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		D7B8EB341A6B3094001EC749 /* f-14-super-tomcat.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "f-14-super-tomcat.dae"; sourceTree = "<group>"; };
 		FC49DE83CC7936B6A085A50D /* Pods-Cardboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cardboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cardboard/Pods-Cardboard.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,6 +232,7 @@
 		6ACA7A521A6A462F0060B316 /* Cardboard App */ = {
 			isa = PBXGroup;
 			children = (
+				D7B8EB331A6B3081001EC749 /* PlaneModels */,
 				6A0F49851A6B1D2000BFA12D /* Frameworks */,
 				6A0F497F1A6B1C2100BFA12D /* Flugen */,
 				6ACA7A291A6A2EE20060B316 /* Watermelon Example */,
@@ -266,6 +269,14 @@
 				6A6F03DB1A6A977C00DC4726 /* SQUCameraCapturer.m */,
 			);
 			name = "Image Routing";
+			sourceTree = "<group>";
+		};
+		D7B8EB331A6B3081001EC749 /* PlaneModels */ = {
+			isa = PBXGroup;
+			children = (
+				D7B8EB341A6B3094001EC749 /* f-14-super-tomcat.dae */,
+			);
+			name = PlaneModels;
 			sourceTree = "<group>";
 		};
 		E7453ECFD21C2CC925C3893D /* Frameworks */ = {
@@ -379,6 +390,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7B8EB351A6B3094001EC749 /* f-14-super-tomcat.dae in Resources */,
 				6ACA7A071A6A2B350060B316 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

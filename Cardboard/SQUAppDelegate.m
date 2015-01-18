@@ -42,6 +42,7 @@
 		UINavigationController *controller = [TLMSettingsViewController settingsInNavigationController];
 		[_mainController presentViewController:controller animated:YES completion:nil];
 	});
+
 	
 	return YES;
 }

@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) TLMPose *currentPose;
 
+@property NSString *typeOfPlane; //can be @"F-14" or @""
+
 @end
 
 @implementation SQUFlugenRenderer
@@ -37,9 +39,22 @@
  * its nodes.
  */
 - (void) addNodesToScene:(SCNScene *) scene {
-	
+    NSError *err = nil;
+    
 	// create skybox
 	scene.background.contents = @[@"skybox_back", @"skybox_front", @"skybox_top", @"skybox_bottom", @"skybox_right", @"skybox_left"];
+    //if([self.typeOfPlane isEqualToString:@"F-14"]){    
+    SCNSceneSource *sceneLoader = [SCNSceneSource sceneSourceWithURL:[[NSBundle mainBundle] URLForResource:@"f-14-super-tomcat" withExtension:@"dae"] options:nil];
+    SCNScene *planeScn = [sceneLoader sceneWithOptions:@{} error:&err];
+    NSAssert(err == nil, @"error loading pls: %@", err);
+    
+//        plane.rootNode.position = SCNVector3Make(-10, -10, 0);
+    //}
+    for(SCNNode *node in planeScn.rootNode.childNodes){
+        NSLog(@"plane is %@", node);
+        [scene.rootNode addChildNode:node];
+    }
+    
 }
 
 /**
