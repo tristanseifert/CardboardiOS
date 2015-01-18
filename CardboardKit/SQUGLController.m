@@ -210,6 +210,7 @@
 	SCNLight *spotLight = [SCNLight light];
 	spotLight.type = SCNLightTypeSpot;
 	spotLight.color = [UIColor colorWithWhite:0.25 alpha:0.25];
+	spotLight.spotOuterAngle = 70.f;
 	
 	SCNNode *spotLightNode = [SCNNode node];
 	spotLightNode.light = spotLight;
