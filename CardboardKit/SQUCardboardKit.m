@@ -9,6 +9,7 @@
 #import "SQUCardboardKit.h"
 
 #define kMotionUpdateInterval (1.f/60.f)
+#define kButtonTolerance 166
 
 static SQUCardboardKit *sharedInstance = nil;
 
@@ -120,19 +121,22 @@ static SQUCardboardKit *sharedInstance = nil;
 
 -(void) observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context{
     if([keyPath isEqualToString:@"magnetometerData"]){ //warning: occasionally button will trigger twice for one direction--be sure to cope with this otherwise shit will fly.
-        if(_magnetometerLastVal-_magnetometerData.magneticField.z>=200 && _magnetometerLastVal!=0){
+		
+        if(_magnetometerLastVal-_magnetometerData.magneticField.z >= kButtonTolerance && _magnetometerLastVal!=0){
             NSLog(@"Button Up");
             [self willChangeValueForKey:@"buttonPress"];
             _buttonPress = YES;
             [self didChangeValueForKey:@"buttonPress"];
         }
-        if(_magnetometerData.magneticField.z-_magnetometerLastVal>=200 && _magnetometerData.magneticField.z!=0){
+        if(_magnetometerData.magneticField.z-_magnetometerLastVal >= kButtonTolerance && _magnetometerData.magneticField.z!=0){
             [self willChangeValueForKey:@"buttonPress"];
             if(_buttonPress == YES){
                 _buttonPress = NO;
             }
             [self didChangeValueForKey:@"buttonPress"];
             NSLog(@"Button Down");
+			
+			[[NSNotificationCenter defaultCenter] postNotificationName:kSQUCardboardKitButtonPressedNotification object:nil];
         }
         _magnetometerLastVal = _magnetometerData.magneticField.z;
     }

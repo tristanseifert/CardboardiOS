@@ -13,6 +13,8 @@
 
 #import "SQURenderDelegate.h"
 
+#define kSQUCardboardKitButtonPressedNotification @"kSQUCardboardKitButtonPressedNotification"
+
 @interface SQUCardboardKit : NSObject <CLLocationManagerDelegate> {
 	
 }

@@ -127,10 +127,10 @@
 	_renderViewLeft.preferredFramesPerSecond = 60;
 	_renderViewLeft.antialiasingMode = SCNAntialiasingModeMultisampling2X;
 	
-	//_renderViewLeft.backgroundColor = [UIColor yellowColor];
+	_renderViewLeft.backgroundColor = [UIColor yellowColor];
 	
 	_renderViewLeft.delegate = self;
-	_renderViewLeft.showsStatistics = YES;
+	_renderViewLeft.showsStatistics = NO;
 	
 	//_renderViewLeft.allowsCameraControl = YES;
 	
@@ -147,7 +147,7 @@
 	_renderViewRight.backgroundColor = _renderViewLeft.backgroundColor;
 	
 	//_renderViewRight.delegate = _renderViewLeft.delegate;
-	_renderViewRight.showsStatistics = YES;
+	_renderViewRight.showsStatistics = _renderViewLeft.showsStatistics;
 	
 	// check if the scene is loaded from a file
 	if([_renderisor respondsToSelector:@selector(colladaFile)]) {

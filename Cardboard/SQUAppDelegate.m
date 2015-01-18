@@ -35,12 +35,12 @@
 	_sphere = [[SQUPhotoSphereRenderer alloc] init];
 	
 	// create main controller
-	_mainController = [[SQUGLController alloc] initWithRenderer:_watermelon];
+	_mainController = [[SQUGLController alloc] initWithRenderer:_sphere];
 	_flugen.rootVC = _mainController;
 	
 	// create window
 	_window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	_window.backgroundColor = [UIColor blackColor];
+	_window.backgroundColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:1];
 	_window.rootViewController = _mainController;
 	[_window makeKeyAndVisible];
 	

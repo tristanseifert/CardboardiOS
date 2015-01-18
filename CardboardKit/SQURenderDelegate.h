@@ -19,6 +19,7 @@
  */
 - (void) addNodesToScene:(SCNScene *) scene;
 
+@optional
 /**
  * Every frame, before the scene is rendered, this method is called. Any sort of
  * animations or modifications can do things here.
@@ -30,7 +31,6 @@
  */
 - (void) willTearDownScene:(SCNScene *) scene;
 
-@optional
 /**
  * Returns the URL of the COLLADA file for the source, if the scene should be
  * loaded from a file.

@@ -12,6 +12,9 @@
 
 @interface SQUPhotoSphereRenderer : NSObject <SQURenderDelegate> {
 	SCNSphere *_sphere;
+	
+	NSArray *_photos;
+	NSUInteger _currentSphere;
 }
 
 - (void) setImage:(UIImage *) image;

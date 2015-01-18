@@ -13,6 +13,7 @@
 		6A0F49891A6B1D4400BFA12D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0F49881A6B1D4400BFA12D /* SystemConfiguration.framework */; };
 		6A0F498D1A6B532D00BFA12D /* SQUEntityLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0F498C1A6B532D00BFA12D /* SQUEntityLoader.m */; };
 		6A0F49911A6B613800BFA12D /* SQUPhotoSphereRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0F49901A6B613800BFA12D /* SQUPhotoSphereRenderer.m */; };
+		6A0F49951A6C07F900BFA12D /* PhotoSpheres.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F49941A6C07F900BFA12D /* PhotoSpheres.plist */; };
 		6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DA1A6A977C00DC4726 /* SQUCameraCapturer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A6F03DD1A6A977C00DC4726 /* SQUCameraCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F03DB1A6A977C00DC4726 /* SQUCameraCapturer.m */; };
 		6A6F03DF1A6AA27C00DC4726 /* SQURenderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DE1A6AA27C00DC4726 /* SQURenderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -71,6 +72,7 @@
 		6A0F498C1A6B532D00BFA12D /* SQUEntityLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQUEntityLoader.m; path = Cardboard/SQUEntityLoader.m; sourceTree = "<group>"; };
 		6A0F498F1A6B613800BFA12D /* SQUPhotoSphereRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQUPhotoSphereRenderer.h; path = Cardboard/SQUPhotoSphereRenderer.h; sourceTree = "<group>"; };
 		6A0F49901A6B613800BFA12D /* SQUPhotoSphereRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQUPhotoSphereRenderer.m; path = Cardboard/SQUPhotoSphereRenderer.m; sourceTree = "<group>"; };
+		6A0F49941A6C07F900BFA12D /* PhotoSpheres.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PhotoSpheres.plist; path = Cardboard/PhotoSpheres.plist; sourceTree = "<group>"; };
 		6A6F03DA1A6A977C00DC4726 /* SQUCameraCapturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUCameraCapturer.h; sourceTree = "<group>"; };
 		6A6F03DB1A6A977C00DC4726 /* SQUCameraCapturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUCameraCapturer.m; sourceTree = "<group>"; };
 		6A6F03DE1A6AA27C00DC4726 /* SQURenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQURenderDelegate.h; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			children = (
 				6A0F498F1A6B613800BFA12D /* SQUPhotoSphereRenderer.h */,
 				6A0F49901A6B613800BFA12D /* SQUPhotoSphereRenderer.m */,
+				6A0F49941A6C07F900BFA12D /* PhotoSpheres.plist */,
 			);
 			name = PhotoSphere;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A0F49951A6C07F900BFA12D /* PhotoSpheres.plist in Resources */,
 				D7B8EB351A6B3094001EC749 /* f-14-super-tomcat.dae in Resources */,
 				6ACA7A071A6A2B350060B316 /* Images.xcassets in Resources */,
 			);
