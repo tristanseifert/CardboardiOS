@@ -11,11 +11,12 @@
 #import <CoreLocation/CoreLocation.h>
 
 @class SQUGLController;
-@class SQUWatermelonLandRenderer, SQUFlugenRenderer;
+@class SQUWatermelonLandRenderer, SQUFlugenRenderer, SQUPhotoSphereRenderer;
 
 @interface SQUAppDelegate : NSObject <UIApplicationDelegate> {
 	SQUWatermelonLandRenderer *_watermelon;
 	SQUFlugenRenderer *_flugen;
+	SQUPhotoSphereRenderer *_sphere;
 }
 
 @property (nonatomic) UIWindow *window;

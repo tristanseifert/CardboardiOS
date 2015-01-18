@@ -12,6 +12,7 @@
 		6A0F49871A6B1D3600BFA12D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0F49861A6B1D3600BFA12D /* CoreBluetooth.framework */; };
 		6A0F49891A6B1D4400BFA12D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0F49881A6B1D4400BFA12D /* SystemConfiguration.framework */; };
 		6A0F498D1A6B532D00BFA12D /* SQUEntityLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0F498C1A6B532D00BFA12D /* SQUEntityLoader.m */; };
+		6A0F49911A6B613800BFA12D /* SQUPhotoSphereRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0F49901A6B613800BFA12D /* SQUPhotoSphereRenderer.m */; };
 		6A6F03DC1A6A977C00DC4726 /* SQUCameraCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DA1A6A977C00DC4726 /* SQUCameraCapturer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A6F03DD1A6A977C00DC4726 /* SQUCameraCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6F03DB1A6A977C00DC4726 /* SQUCameraCapturer.m */; };
 		6A6F03DF1A6AA27C00DC4726 /* SQURenderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6F03DE1A6AA27C00DC4726 /* SQURenderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -68,6 +69,8 @@
 		6A0F49881A6B1D4400BFA12D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6A0F498B1A6B532D00BFA12D /* SQUEntityLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQUEntityLoader.h; path = Cardboard/SQUEntityLoader.h; sourceTree = "<group>"; };
 		6A0F498C1A6B532D00BFA12D /* SQUEntityLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQUEntityLoader.m; path = Cardboard/SQUEntityLoader.m; sourceTree = "<group>"; };
+		6A0F498F1A6B613800BFA12D /* SQUPhotoSphereRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQUPhotoSphereRenderer.h; path = Cardboard/SQUPhotoSphereRenderer.h; sourceTree = "<group>"; };
+		6A0F49901A6B613800BFA12D /* SQUPhotoSphereRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQUPhotoSphereRenderer.m; path = Cardboard/SQUPhotoSphereRenderer.m; sourceTree = "<group>"; };
 		6A6F03DA1A6A977C00DC4726 /* SQUCameraCapturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQUCameraCapturer.h; sourceTree = "<group>"; };
 		6A6F03DB1A6A977C00DC4726 /* SQUCameraCapturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQUCameraCapturer.m; sourceTree = "<group>"; };
 		6A6F03DE1A6AA27C00DC4726 /* SQURenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQURenderDelegate.h; sourceTree = "<group>"; };
@@ -152,6 +155,15 @@
 				6A0F498C1A6B532D00BFA12D /* SQUEntityLoader.m */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		6A0F498E1A6B5F9300BFA12D /* PhotoSphere */ = {
+			isa = PBXGroup;
+			children = (
+				6A0F498F1A6B613800BFA12D /* SQUPhotoSphereRenderer.h */,
+				6A0F49901A6B613800BFA12D /* SQUPhotoSphereRenderer.m */,
+			);
+			name = PhotoSphere;
 			sourceTree = "<group>";
 		};
 		6A6F03D51A6A8F5D00DC4726 /* Resources */ = {
@@ -248,6 +260,7 @@
 				6A0F498A1A6B531300BFA12D /* Utilities */,
 				D7B8EB331A6B3081001EC749 /* PlaneModels */,
 				6A0F497F1A6B1C2100BFA12D /* Flugen */,
+				6A0F498E1A6B5F9300BFA12D /* PhotoSphere */,
 				6ACA7A291A6A2EE20060B316 /* Watermelon Example */,
 				6ACA7A231A6A2CC20060B316 /* App Delegate */,
 				6ACA79F91A6A2B350060B316 /* Supporting Files */,
@@ -459,6 +472,7 @@
 				6A0F498D1A6B532D00BFA12D /* SQUEntityLoader.m in Sources */,
 				6ACA79FC1A6A2B350060B316 /* main.m in Sources */,
 				6A6F03E21A6AA39D00DC4726 /* SQUWatermelonLandRenderer.m in Sources */,
+				6A0F49911A6B613800BFA12D /* SQUPhotoSphereRenderer.m in Sources */,
 				6A0F49821A6B1C7F00BFA12D /* SQUFlugenRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
