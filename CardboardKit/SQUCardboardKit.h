@@ -16,7 +16,7 @@
 #define kSQUCardboardKitButtonPressedNotification @"kSQUCardboardKitButtonPressedNotification"
 
 @interface SQUCardboardKit : NSObject <CLLocationManagerDelegate> {
-	
+	BOOL _buttonDownNotification;
 }
 
 @property (nonatomic, retain) CLLocationManager *locationManager;

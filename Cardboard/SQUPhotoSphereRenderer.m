@@ -17,10 +17,12 @@
 - (void) addNodesToScene:(SCNScene *) scene {
 	// create spherical geometry
 	_sphere = [SCNSphere sphereWithRadius:200.f];
-	//_sphere.geodesic = YES;
+	_sphere.geodesic = YES;
 	
 	_sphere.firstMaterial.doubleSided = YES;
 	_sphere.firstMaterial.diffuse.contents = [UIColor yellowColor];
+	_sphere.firstMaterial.shininess = 0.00;
+	_sphere.firstMaterial.reflective.contents = [UIColor clearColor];
 //	_sphere.firstMaterial.diffuse.contentsTransform = SCNMatrix4MakeTranslation(0, 0, 0);
 	_sphere.firstMaterial.cullMode = SCNCullFront;
 	

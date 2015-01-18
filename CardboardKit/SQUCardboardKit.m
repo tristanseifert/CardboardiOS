@@ -127,6 +127,8 @@ static SQUCardboardKit *sharedInstance = nil;
             [self willChangeValueForKey:@"buttonPress"];
             _buttonPress = YES;
             [self didChangeValueForKey:@"buttonPress"];
+			
+			_buttonDownNotification = YES;
         }
         if(_magnetometerData.magneticField.z-_magnetometerLastVal >= kButtonTolerance && _magnetometerData.magneticField.z!=0){
             [self willChangeValueForKey:@"buttonPress"];
@@ -136,7 +138,11 @@ static SQUCardboardKit *sharedInstance = nil;
             [self didChangeValueForKey:@"buttonPress"];
             NSLog(@"Button Down");
 			
-			[[NSNotificationCenter defaultCenter] postNotificationName:kSQUCardboardKitButtonPressedNotification object:nil];
+			// hysterisis
+			if(_buttonDownNotification) {
+				[[NSNotificationCenter defaultCenter] postNotificationName:kSQUCardboardKitButtonPressedNotification object:nil];
+				_buttonDownNotification = NO;
+			}
         }
         _magnetometerLastVal = _magnetometerData.magneticField.z;
     }
