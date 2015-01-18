@@ -62,4 +62,12 @@
 	
 }
 
+/**
+ * Returns the URL of the COLLADA file for the source, if the scene should be
+ * loaded from a file.
+ */
+/*- (NSURL *) colladaFile {
+	return [[NSBundle mainBundle] URLForResource:@"sphere" withExtension:@"dae"];
+}*/
+
 @end

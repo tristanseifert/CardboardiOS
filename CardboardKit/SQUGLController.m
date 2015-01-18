@@ -147,9 +147,18 @@
 	_renderViewRight.delegate = _renderViewLeft.delegate;
 	_renderViewRight.showsStatistics = YES;
 	
-	// set up teh scene
-	_scene = [SCNScene scene];
-	
+	// check if the scene is loaded from a file
+	if([_renderisor respondsToSelector:@selector(colladaFile)]) {
+		NSError *err = nil;
+		
+		NSURL *url = [_renderisor colladaFile];
+		
+		_scene = [SCNScene sceneWithURL:url options:nil error:&err];
+		NSAssert(!err, @"Couldn't load scene from %@: %@", url, err);
+	} else {
+		_scene = [SCNScene scene];
+	}
+		
 /*	_scene.fogStartDistance = 15.f;
 	_scene.fogEndDistance = 50.f;*/
 	
@@ -282,8 +291,8 @@
 	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.y, 0, 1, 0);
 	_cam_r.transform = SCNMatrix4Rotate(_cam_r.transform, angles.z, 0, 0, 1);*/
 	
-/*	_cam_l.eulerAngles = angles;
-	_cam_r.eulerAngles = angles;*/
+	_cam_l.eulerAngles = angles;
+	_cam_r.eulerAngles = angles;
 }
 
 #pragma mark - Properties

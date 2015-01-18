@@ -30,4 +30,11 @@
  */
 - (void) willTearDownScene:(SCNScene *) scene;
 
+@optional
+/**
+ * Returns the URL of the COLLADA file for the source, if the scene should be
+ * loaded from a file.
+ */
+- (NSURL *) colladaFile;
+
 @end
