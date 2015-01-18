@@ -43,14 +43,14 @@
 - (void) addNodesToScene:(SCNScene *) scene {    
 	// create skybox
 	scene.background.contents = @[@"skybox_back", @"skybox_front", @"skybox_top", @"skybox_bottom", @"skybox_right", @"skybox_left"];
-
+/*
 	// asdjasklfjakls;fdas
 	NSURL *url = [[NSBundle mainBundle] URLForResource:@"f-14-super-tomcat" withExtension:@"dae"];
 	SCNNode *n = [[SQUEntityLoader sharedInstance] nodeFromFile:url];
 	
 	DDLogVerbose(@"%@", n);
 	
-	[scene.rootNode addChildNode:n];
+	[scene.rootNode addChildNode:n];*/
 }
 
 /**
