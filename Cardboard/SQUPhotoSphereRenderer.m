@@ -15,50 +15,25 @@
  * its nodes.
  */
 - (void) addNodesToScene:(SCNScene *) scene {
-	/*// create spherical geometry
-	_sphere = [SCNSphere sphereWithRadius:15.f];
-	_sphere.firstMaterial.diffuse.contents = [UIColor redColor];
+	// create spherical geometry
+	_sphere = [SCNSphere sphereWithRadius:200.f];
+	_sphere.geodesic = YES;
+	
+	_sphere.firstMaterial.doubleSided = YES;
+	_sphere.firstMaterial.diffuse.contents = [UIImage imageNamed:@"forkSphere"];
+	_sphere.firstMaterial.diffuse.contentsTransform = SCNMatrix4Identity;
 	_sphere.firstMaterial.cullMode = SCNCullFront;
 	
 	SCNNode *node = [SCNNode nodeWithGeometry:_sphere];
-	node.position = SCNVector3Make(0, 0, -10);
-	[scene.rootNode addChildNode:node];*/
-	
-	// create cube
-	/*CGFloat boxSide = 10.0;
-	SCNBox *box = [SCNBox boxWithWidth:boxSide
-								height:boxSide
-								length:boxSide
-						 chamferRadius:0];
-	
-	SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
-	boxNode.position = SCNVector3Make(0, 0, -30);
-	
-	// load the watermelon texture
-	SCNMaterial *watermelonTexture = box.firstMaterial;
-	watermelonTexture.diffuse.contents = [UIImage imageNamed:@"watermelon"];
-	watermelonTexture.specular.contents = [UIColor colorWithWhite:0.05 alpha:1.0];
-	watermelonTexture.shininess = 0.025;
-	box.materials = @[watermelonTexture];
-	
-	[scene.rootNode addChildNode:boxNode];*/
-    //scene.background.contents = @[@"1",@"2",@"3",@"4",@"5",@"6"];
-    scene.background.contents = @[@"skybox_back", @"skybox_front", @"skybox_top", @"skybox_bottom", @"skybox_right", @"skybox_left"];
+	node.position = SCNVector3Make(0, 0, 0);
+	[scene.rootNode addChildNode:node];
 }
 
 /**
- * Every frame, before the scene is rendered, this method is called. Any sort of
- * animations or modifications can do things here.
+ * Sets the image to render.
  */
-- (void) willRenderScene:(SCNScene *) scene {
-	
-}
-
-/**
- * Called right before the scene is torn down. Any cleanup can be done here.
- */
-- (void) willTearDownScene:(SCNScene *) scene {
-	
+- (void) setImage:(UIImage *) image {
+	_sphere.firstMaterial.diffuse.contents = image;
 }
 
 @end

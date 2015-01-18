@@ -14,4 +14,6 @@
 	SCNSphere *_sphere;
 }
 
+- (void) setImage:(UIImage *) image;
+
 @end

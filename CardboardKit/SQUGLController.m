@@ -52,7 +52,9 @@
  */
 - (void) dealloc {
 	// tear down renderer
-	[_renderisor willTearDownScene:_scene];
+	if([_renderisor respondsToSelector:@selector(willTearDownScene:)]) {
+		[_renderisor willTearDownScene:_scene];
+	}
 	
 	// remove KVO
 	@try {
@@ -147,9 +149,18 @@
 	//_renderViewRight.delegate = _renderViewLeft.delegate;
 	_renderViewRight.showsStatistics = YES;
 	
-	// set up teh scene
-	_scene = [SCNScene scene];
-	
+	// check if the scene is loaded from a file
+	if([_renderisor respondsToSelector:@selector(colladaFile)]) {
+		NSError *err = nil;
+		
+		NSURL *url = [_renderisor colladaFile];
+		
+		_scene = [SCNScene sceneWithURL:url options:nil error:&err];
+		NSAssert(!err, @"Couldn't load scene from %@: %@", url, err);
+	} else {
+		_scene = [SCNScene scene];
+	}
+		
 /*	_scene.fogStartDistance = 15.f;
 	_scene.fogEndDistance = 50.f;*/
 	
@@ -175,8 +186,10 @@
 	_cam_l = [SCNNode node];
 	_cam_l.name = kNodeNameCameraLeft;
 	_cam_l.camera = [SCNCamera camera];
-	_cam_l.camera.focalSize = 15.f;
-	_cam_l.camera.aperture = (1/6.f);
+/*	_cam_l.camera.focalSize = 15.f;
+	_cam_l.camera.aperture = (1/6.f);*/
+	_cam_l.camera.yFov = 70.f;
+	_cam_l.camera.zFar = 200.f;
 	_cam_l.position = SCNVector3Make(-_offset, 0, 0);
 	
 	[_scene.rootNode addChildNode:_cam_l];
@@ -185,8 +198,10 @@
 	_cam_r = [SCNNode node];
 	_cam_r.name = kNodeNameCameraRight;
 	_cam_r.camera = [SCNCamera camera];
-	_cam_r.camera.focalSize = 15.f;
-	_cam_r.camera.aperture = (1/6.f);
+/*	_cam_r.camera.focalSize = 15.f;
+	_cam_r.camera.aperture = (1/6.f);*/
+	_cam_r.camera.yFov = _cam_l.camera.yFov;
+	_cam_r.camera.zFar = _cam_l.camera.zFar;
 	_cam_r.position = SCNVector3Make(_offset, 0, 0);
 	
 	[_scene.rootNode addChildNode:_cam_r];
@@ -237,7 +252,9 @@
  */
 - (void) renderer:(id <SCNSceneRenderer>) aRenderer willRenderScene:(SCNScene *) scene atTime:(NSTimeInterval) time {
 	if(aRenderer == _renderViewLeft && _sceneInitialised) {
-		[_renderisor willRenderScene:_scene];
+		if([_renderisor respondsToSelector:@selector(willRenderScene:)]) {
+			[_renderisor willRenderScene:_scene];
+		}
 	}
 }
 

@@ -26,8 +26,8 @@
 	[KVNProgress setConfiguration:configuration];
 	
 	// Initialse Myo library
-	NSString *meep = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
-	[[TLMHub sharedHub] setApplicationIdentifier:meep];
+	/*NSString *meep = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
+	[[TLMHub sharedHub] setApplicationIdentifier:meep];*/
 	
 	// create demo controllers
 	_watermelon = [[SQUWatermelonLandRenderer alloc] init];
@@ -35,7 +35,7 @@
 	_sphere = [[SQUPhotoSphereRenderer alloc] init];
 	
 	// create main controller
-	_mainController = [[SQUGLController alloc] initWithRenderer:_flugen];
+	_mainController = [[SQUGLController alloc] initWithRenderer:_watermelon];
 	_flugen.rootVC = _mainController;
 	
 	// create window
@@ -45,7 +45,7 @@
 	[_window makeKeyAndVisible];
 	
 	// Connect to Myo
-	[_flugen doMyoInit];
+	//[_flugen doMyoInit];
 	
 	// initialise cardboard kit, pls
 	[[SQUCardboardKit sharedInstance] configureSensors];

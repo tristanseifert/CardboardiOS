@@ -27,7 +27,7 @@
 	SCNBox *box = [SCNBox boxWithWidth:boxSide
 								height:boxSide
 								length:boxSide
-						 chamferRadius:0];
+						 chamferRadius:0.5];
 	box.name = kNodeNameCube;
 	
 	SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
@@ -52,19 +52,42 @@
 	
 	[boxNode addAnimation:boxRotation forKey:@"RotateCubular"];
 	
+	
+	// watermelon rotation
+	CABasicAnimation *sphereRotation =	[CABasicAnimation animationWithKeyPath:@"rotation"];
+	sphereRotation.fromValue =	[NSValue valueWithSCNVector4:SCNVector4Make(0, 1, 1, 0)];
+	sphereRotation.toValue = [NSValue valueWithSCNVector4:SCNVector4Make(0, 1, 1, 2*M_PI)];
+	sphereRotation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+	sphereRotation.repeatCount = INFINITY;
+	sphereRotation.duration = M_PI;
+	
+	// watermelon surface
+	SCNMaterial *watermelonSurface = [SCNMaterial material];
+	watermelonSurface.diffuse.contents = [UIImage imageNamed:@"WatermelonSurface"];
+	watermelonSurface.specular.contents = [UIColor colorWithWhite:0.05 alpha:1.0];
+	watermelonSurface.shininess = 0.025;
+	
 	// create a sphere
-	SCNSphere *sphere = [SCNSphere sphereWithRadius:5];
+	for(float i = 0; i < (2 * M_PI); i+= 0.35) {
+		float xMultiplicand = cosf(i);
+		float yMultiplicand = sinf(i);
+		
+		// create sphere
+		SCNSphere *sphere = [SCNSphere sphereWithRadius:5];
 	
-	SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphere];
-	sphereNode.name = kNodeNameSphere;
-	sphereNode.position = SCNVector3Make(-5, 13, -38);
-	sphere.materials = @[watermelonTexture];
+		SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphere];
+		sphereNode.name = kNodeNameSphere;
+		sphereNode.position = SCNVector3Make(50 * xMultiplicand, 10, 50 * yMultiplicand);
+		sphere.materials = @[watermelonSurface];
 	
-	[scene.rootNode addChildNode:sphereNode];
+		[scene.rootNode addChildNode:sphereNode];
+		
+		// add watermelon rotation to it
+		[sphereNode addAnimation:sphereRotation forKey:@"RotateSphere"];
+	}
 	
 	// create skybox
-	//scene.background.contents = @[@"skybox_back", @"skybox_front", @"skybox_top", @"skybox_bottom", @"skybox_right", @"skybox_left"];
-
+	scene.background.contents = @[@"skybox_back", @"skybox_front", @"skybox_top", @"skybox_bottom", @"skybox_right", @"skybox_left"];
 }
 
 /**
