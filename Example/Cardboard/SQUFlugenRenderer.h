@@ -8,14 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import "CardboardKit.h"
+#import "CardboardKit/CardboardKit.h"
 
 @interface SQUFlugenRenderer : NSObject <SQURenderDelegate> {
     SCNScene *_scene;
 }
 
 @property (nonatomic, readwrite) UIViewController *rootVC;
-
-- (void) doMyoInit;
 
 @end

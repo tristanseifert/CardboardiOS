@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>20</string>
 	<key>NSPrincipalClass</key>
 	<string>SQUCardboardKit</string>
 </dict>

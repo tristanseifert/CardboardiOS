@@ -13,8 +13,7 @@
 
 #import "SQUAppDelegate.h"
 
-#import "CardboardKit.h"
-#import <MyoKit/MyoKit.h>
+#import "CardboardKit/CardboardKit.h"
 #import <KVNProgress/KVNProgress.h>
 
 @implementation SQUAppDelegate
@@ -24,10 +23,6 @@
 	KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
 	configuration.fullScreen = YES;
 	[KVNProgress setConfiguration:configuration];
-	
-	// Initialse Myo library
-	/*NSString *meep = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
-	[[TLMHub sharedHub] setApplicationIdentifier:meep];*/
 	
 	// create demo controllers
 	_watermelon = [[SQUWatermelonLandRenderer alloc] init];
@@ -44,11 +39,8 @@
 	_window.rootViewController = _mainController;
 	[_window makeKeyAndVisible];
 	
-	// Connect to Myo
-	//[_flugen doMyoInit];
-	
-	// initialise cardboard kit, pls
-	[[SQUCardboardKit sharedInstance] configureSensors];
+	// initialise CardboardKit
+	[[SQUCardboardKit sharedInstance] requestAuthorization];
 	
 	return YES;
 }

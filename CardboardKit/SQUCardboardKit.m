@@ -6,31 +6,41 @@
 //  Copyright (c) 2015 Tristan Seifert. All rights reserved.
 //
 
+#import "SQUPositionalSensorInterface.h"
 #import "SQUCardboardKit.h"
 
-#define kMotionUpdateInterval (1.f/30.f)
+// Configurables
 #define kButtonTolerance 166
 
+/// Holds the shared instance of the cardboard interface.
 static SQUCardboardKit *sharedInstance = nil;
 
+#pragma mark - Private
+#pragma mark Properties
 @interface SQUCardboardKit ()
 
-@property CMDeviceMotion *motionData;
-@property CMDeviceMotion *motionDataLastVal;
-
-@property CMMagnetometerData *magnetometerData;
 @property float magnetometerLastVal;
-
 @property BOOL buttonPress;
 
-@property (strong) CMMotionManager *motionManager;
+@property (nonatomic) dispatch_queue_t processingQueue;
+
+@property CMDeviceMotion *motionDataLast;
 
 @end
 
+#pragma mark Functions
+@interface SQUCardboardKit ()
+
+- (void) processMagnetometer;
+- (void) processAccelerometer;
+
+@end
+
+#pragma mark - Initialisation
 @implementation SQUCardboardKit
 
 /**
- * Create shared instance
+ * Create/returns shared instance
  */
 + (instancetype) sharedInstance {
 	static dispatch_once_t onceToken;
@@ -41,137 +51,124 @@ static SQUCardboardKit *sharedInstance = nil;
 	return sharedInstance;
 }
 
- /**
- * Requests location permissions
- */
-- (void) requestPermissions {
-	//check on location data permissions
-	_locationManager = [[CLLocationManager alloc] init];
-	CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
+- (id) init {
+	if(self = [super init]) {
+		// Configure some default values
+		_buttonPress = NO;
+		_cameraAngle = SCNVector3Make(-M_PI_2, 0, 0);
+		
+		// Set up the queue
+		_processingQueue = dispatch_queue_create("CardboardKitProcessing", NULL);
 	
-	if(authStatus == (kCLAuthorizationStatusRestricted | kCLAuthorizationStatusDenied)){ //need to ask permission
-		[_locationManager requestWhenInUseAuthorization]; //ask permission
+		// Initialise the sensor controller
+		_posSensors = [[SQUPositionalSensorInterface alloc] init];
+		
+		// Initialise KVO
+		[_posSensors addObserver:self forKeyPath:@"magnetometerData"
+					  options:0 context:NULL];
+		[_posSensors addObserver:self forKeyPath:@"motionData"
+					  options:0 context:NULL];
 	}
 	
-	// is heading available ??!?!?!????!
-	if(_locationManager.headingAvailable){ //cool, let's set it up
-		_locationManager.delegate = self;
-		_locationManager.headingFilter = kCLHeadingFilterNone; //continuous survey of the magnetometer calling delegate
-		[_locationManager startUpdatingHeading];
-	} else{ //this is very unlikely to be called ever
-		NSLog(@"go die");
-	}
+	return self;
 }
 
 /**
- * Receives heading changes
+ * Cleans up any KVO and notification bindings.
  */
-- (void) locationManager:(CLLocationManager *) manager didUpdateHeading:(CLHeading *) newHeading{
-	//NSLog(@"Heading: %@",newHeading);
+- (void) dealloc {
+	[_posSensors removeObserver:self forKeyPath:@"magnetometerData"];
+	[_posSensors removeObserver:self forKeyPath:@"motion"];
 	
-	if(abs(180.0-abs(newHeading.y)) <= 40.0){
-		NSLog(@"\n\n\nBUTTON PRESS!!!!\n\n\n");
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark KVO
+/**
+ * KVO Handler: in here, we send off requests to process the various sensors' data in
+ * our background processing queue.
+ */
+- (void) observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object
+						 change:(NSDictionary *) change context:(void *) context{
+    if([keyPath isEqualToString:@"magnetometerData"]){
+		dispatch_async(_processingQueue, ^{
+			[self processMagnetometer];
+		});
+    } else if([keyPath isEqualToString:@"motionData"]){
+		dispatch_async(_processingQueue, ^{
+			[self processAccelerometer];
+		});
+    }
+}
+
+#pragma mark - Data Processing
+/**
+ * Processes data from the magnetometer.
+ */
+- (void) processMagnetometer {
+	// Get magnometer data
+	CMMagnetometerData *magnoData = _posSensors.magnetometerData;
+	
+	// Determine if the button is being held down
+	if((_magnetometerLastVal - magnoData.magneticField.z) >= kButtonTolerance
+	   && _magnetometerLastVal != 0) {
+		[self willChangeValueForKey:@"buttonPress"];
+		_buttonPress = YES;
+		[self didChangeValueForKey:@"buttonPress"];
+		
+		_buttonDownNotification = YES;
 	}
+	
+	if((magnoData.magneticField.z - _magnetometerLastVal) >= kButtonTolerance
+	   && magnoData.magneticField.z != 0) {
+		[self willChangeValueForKey:@"buttonPress"];
+		if(_buttonPress == YES){
+			_buttonPress = NO;
+		}
+		
+		[self didChangeValueForKey:@"buttonPress"];
+		
+		// hysterisis
+		if(_buttonDownNotification) {
+			[[NSNotificationCenter defaultCenter] postNotificationName:kSQUCardboardKitButtonPressedNotification object:nil];
+			_buttonDownNotification = NO;
+		}
+	}
+	
+	// Store the last value of the magnometer: used to detect the ∆ for button
+	_magnetometerLastVal = magnoData.magneticField.z;
 }
 
 /**
- * Configures sensors and orientation matrix for perspective calculations
+ * Processes the accelerometer's six axes of data.
  */
-
-- (void) configureSensors {
-    _buttonPress = NO;
-    
-    _motionManager = [[CMMotionManager alloc] init];
-    _motionManager.deviceMotionUpdateInterval = kMotionUpdateInterval;
-	_motionManager.showsDeviceMovementDisplay = YES;
+- (void) processAccelerometer {
+	// Motion data from accelerometer
+	CMDeviceMotion *motionData = _posSensors.motionData;
 	
-    if(_motionManager.deviceMotionAvailable){ //sensor data available, they can use this feature (and app)
-        [self addObserver:self forKeyPath:@"motionData" options:0 context:nil];
-        [self addObserver:self forKeyPath:@"magnetometerData" options:0 context:nil];
-        
-        //update full range of motion data
-        [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^void (CMDeviceMotion *data, NSError *error){
-            if (error == nil){
-                [self willChangeValueForKey:@"motionData"];
-                _motionData=data;
-                [self didChangeValueForKey:@"motionData"];
-            }
-            else{
-                NSLog(@"Error reading accel data");
-            }
-        }];
-    
-       //update magnetometer data
-        _motionManager.magnetometerUpdateInterval = kMotionUpdateInterval; // 1/10 sec update interval
-        
-        [_motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *data, NSError *error) {
-            if (error == nil){
-                [self willChangeValueForKey:@"magnetometerData"];
-                _magnetometerData = data;
-                [self didChangeValueForKey:@"magnetometerData"];
-            }
-            else{
-                NSLog(@"Error reading magneto data");
-            }
-        }];
-    }
+	// Get the three basic axes
+	float yaw = (motionData.attitude.yaw - _motionDataLast.attitude.yaw);
+	float roll = -(motionData.attitude.roll - _motionDataLast.attitude.roll );
+	float pitch = (motionData.attitude.pitch - _motionDataLast.attitude.pitch );
 	
-	// this seems like a good time to do this !??!?!?//!/1//111
-	_cameraAngle = SCNVector3Make(-M_PI_2, 0, 0);
+	// Store the motion data, as CMDeviceMotion are deltas
+	_motionDataLast = motionData;
+	
+	// observed by the renderer
+	[self willChangeValueForKey:@"cameraAngle"];
+	_cameraAngle.x += roll;
+	_cameraAngle.y += yaw;
+	_cameraAngle.z += -pitch;
+	[self didChangeValueForKey:@"cameraAngle"];
 }
 
-- (void) observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context{
-    if([keyPath isEqualToString:@"magnetometerData"]){ //warning: occasionally button will trigger twice for one direction--be sure to cope with this otherwise shit will fly.
-		
-        if(_magnetometerLastVal-_magnetometerData.magneticField.z >= kButtonTolerance && _magnetometerLastVal!=0){
-            NSLog(@"Button Up");
-            [self willChangeValueForKey:@"buttonPress"];
-            _buttonPress = YES;
-            [self didChangeValueForKey:@"buttonPress"];
-			
-			_buttonDownNotification = YES;
-        }
-        if(_magnetometerData.magneticField.z-_magnetometerLastVal >= kButtonTolerance && _magnetometerData.magneticField.z!=0){
-            [self willChangeValueForKey:@"buttonPress"];
-            if(_buttonPress == YES){
-                _buttonPress = NO;
-            }
-            [self didChangeValueForKey:@"buttonPress"];
-            NSLog(@"Button Down");
-			
-			// hysterisis
-			if(_buttonDownNotification) {
-				[[NSNotificationCenter defaultCenter] postNotificationName:kSQUCardboardKitButtonPressedNotification object:nil];
-				_buttonDownNotification = NO;
-			}
-        }
-        _magnetometerLastVal = _magnetometerData.magneticField.z;
-    }
-    
-    if([keyPath isEqualToString:@"motionData"]){ //update the position
-		float yaw = (_motionData.attitude.yaw - _motionDataLastVal.attitude.yaw);
-		float roll = -(_motionData.attitude.roll - _motionDataLastVal.attitude.roll );
-		float pitch = (_motionData.attitude.pitch - _motionDataLastVal.attitude.pitch );
-		
-        /* float accelX = (_motionData.userAcceleration.x - _motionDataLastVal.userAcceleration.x );
-        float accelY = (_motionData.userAcceleration.y - _motionDataLastVal.userAcceleration.y );
-        float accelZ = (_motionData.userAcceleration.z - _motionDataLastVal.userAcceleration.z );
-        
-        float orientX = (_motionData.magneticField.field.x - _motionDataLastVal.magneticField.field.x);
-        float orientY = (_motionData.magneticField.field.y - _motionDataLastVal.magneticField.field.y);
-        float orientZ = (_motionData.magneticField.field.z - _motionDataLastVal.magneticField.field.z);*/
 
-       //printf("Attitude yaw: %.1f, roll %.1f, pitch %.1f \n accelX: %.1f Y: %.1f Z: %.1f \n orientX: %.01f Y: %.01f Z: %.01f\n",yaw,roll,pitch,accelX,accelY,accelZ,orientX,orientY,orientZ);
-        
-        _motionDataLastVal = _motionData;
-		
-		// quadrangulum !!!
-		[self willChangeValueForKey:@"cameraAngle"];
-		_cameraAngle.x += roll;
-		_cameraAngle.y += yaw;
-		_cameraAngle.z += -pitch;
-		[self didChangeValueForKey:@"cameraAngle"];
-    }
+#pragma mark Miscellaneous
+/**
+ * Requests authorization to access motion data.
+ */
+- (void) requestAuthorization {
+	[_posSensors requestLocationPermissions];
 }
 
 @end

@@ -19,3 +19,4 @@ FOUNDATION_EXPORT const unsigned char CardboardKitVersionString[];
 #import <CardboardKit/SQUGLController.h>
 #import <CardboardKit/SQUCameraCapturer.h>
 #import <CardboardKit/SQURenderDelegate.h>
+#import <CardboardKit/SQUPositionalSensorInterface.h>

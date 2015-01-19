@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "CardboardKit.h"
+#import "CardboardKit/CardboardKit.h"
 
 @interface SQUWatermelonLandRenderer : NSObject <SQURenderDelegate> {
 	SQUCameraCapturer *_camera;

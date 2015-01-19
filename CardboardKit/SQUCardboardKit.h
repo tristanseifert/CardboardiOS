@@ -15,17 +15,25 @@
 
 #define kSQUCardboardKitButtonPressedNotification @"kSQUCardboardKitButtonPressedNotification"
 
+@class SQUPositionalSensorInterface;
 @interface SQUCardboardKit : NSObject <CLLocationManagerDelegate> {
 	BOOL _buttonDownNotification;
 }
 
-@property (nonatomic, retain) CLLocationManager *locationManager;
+/// Handles data from the sensors
+@property (nonatomic, readonly) SQUPositionalSensorInterface *posSensors;
 
 /// Euller's angles
 @property (nonatomic, readonly) SCNVector3 cameraAngle;
 
+/**
+ * Gets the shared instance. It automatically initialises whatever else is required.
+ */
 + (instancetype) sharedInstance;
 
-- (void) configureSensors;
+/**
+ * Requests authorization to access motion data.
+ */
+- (void) requestAuthorization;
 
 @end

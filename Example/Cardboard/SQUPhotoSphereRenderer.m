@@ -23,7 +23,6 @@
 	_sphere.firstMaterial.diffuse.contents = [UIColor yellowColor];
 	_sphere.firstMaterial.shininess = 0.00;
 	_sphere.firstMaterial.reflective.contents = [UIColor clearColor];
-//	_sphere.firstMaterial.diffuse.contentsTransform = SCNMatrix4MakeTranslation(0, 0, 0);
 	_sphere.firstMaterial.cullMode = SCNCullFront;
 	
 	SCNNode *node = [SCNNode nodeWithGeometry:_sphere];
