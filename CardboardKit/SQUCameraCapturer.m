@@ -6,8 +6,12 @@
 //	to which this is rendered. This layer can then be used in SceneKit to be
 //	rendered.
 //
-//  Created by Tristan Seifert on 1/17/15.
-//  Copyright (c) 2015 Tristan Seifert. All rights reserved.
+//  NOTE: Live camera capture doesn't work now by some quirk of iOS's internal
+//  graphic ability.
+//
+//
+//  Created by Tristan Seifert and Jake Glass on 1/17/15.
+//  Copyright (c) 2015 Squee! Application Development. All rights reserved.
 //
 
 #import "SQUCameraCapturer.h"

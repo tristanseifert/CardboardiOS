@@ -2,8 +2,8 @@
 //  SQUAppDelegate.m
 //  Cardboard
 //
-//  Created by Tristan Seifert on 1/17/15.
-//  Copyright (c) 2015 Tristan Seifert. All rights reserved.
+//  Created by Tristan Seifert and Jake Glass on 1/17/15.
+//  Copyright (c) 2015 Squee! Application Development. All rights reserved.
 //
 
 #import "SQUGLController.h"
@@ -20,12 +20,13 @@
 @implementation SQUAppDelegate
 
 - (BOOL) application:(UIApplication *) application didFinishLaunchingWithOptions:(NSDictionary *) launchOptions {
-	// Set up KVNProgress
+	
+    // Set up KVNProgress
 	KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
 	configuration.fullScreen = YES;
 	[KVNProgress setConfiguration:configuration];
 	
-	// Initialse Myo library
+	// Initialse Myo library — optional additional UI control device
 	/*NSString *meep = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
 	[[TLMHub sharedHub] setApplicationIdentifier:meep];*/
 	
@@ -38,7 +39,7 @@
 	_mainController = [[SQUGLController alloc] initWithRenderer:_sphere];
 	_flugen.rootVC = _mainController;
 	
-	// create window
+	// create window — only slightly important
 	_window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	_window.backgroundColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:1];
 	_window.rootViewController = _mainController;
@@ -47,7 +48,7 @@
 	// Connect to Myo
 	//[_flugen doMyoInit];
 	
-	// initialise cardboard kit, pls
+	// initialise cardboard kit
 	[[SQUCardboardKit sharedInstance] configureSensors];
 	
 	return YES;

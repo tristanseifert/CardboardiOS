@@ -2,8 +2,10 @@
 //  SQUCardboardKit.m
 //  Cardboard
 //
-//  Created by Tristan Seifert on 1/17/15.
-//  Copyright (c) 2015 Tristan Seifert. All rights reserved.
+//  Uses CoreMotion to sense user interaction with Cardboard.
+//
+//  Created by Tristan Seifert and Jake Glass on 1/17/15.
+//  Copyright (c) 2015 Squee! Application Development. All rights reserved.
 //
 
 #import "SQUCardboardKit.h"
@@ -67,17 +69,12 @@ static SQUCardboardKit *sharedInstance = nil;
  * Receives heading changes
  */
 -(void) locationManager:(CLLocationManager *) manager didUpdateHeading:(CLHeading *) newHeading{
-	//NSLog(@"Heading: %@",newHeading);
-	
-	if(abs(180.0-abs(newHeading.y)) <= 40.0){
-		NSLog(@"\n\n\nBUTTON PRESS!!!!\n\n\n");
-	}
+	//nothing implemented here yet
 }
 
 /**
- * Configures sensors and orientation matrix for perspective calculations
+ * Configures sensors and orientation matrix for beginning perspective calculations
  */
-
 -(void)configureSensors{
     _buttonPress = NO;
     
