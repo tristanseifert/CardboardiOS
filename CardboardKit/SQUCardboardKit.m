@@ -8,7 +8,7 @@
 
 #import "SQUCardboardKit.h"
 
-#define kMotionUpdateInterval (1.f/60.f)
+#define kMotionUpdateInterval (1.f/30.f)
 #define kButtonTolerance 166
 
 static SQUCardboardKit *sharedInstance = nil;
@@ -66,7 +66,7 @@ static SQUCardboardKit *sharedInstance = nil;
 /**
  * Receives heading changes
  */
--(void) locationManager:(CLLocationManager *) manager didUpdateHeading:(CLHeading *) newHeading{
+- (void) locationManager:(CLLocationManager *) manager didUpdateHeading:(CLHeading *) newHeading{
 	//NSLog(@"Heading: %@",newHeading);
 	
 	if(abs(180.0-abs(newHeading.y)) <= 40.0){
@@ -78,11 +78,12 @@ static SQUCardboardKit *sharedInstance = nil;
  * Configures sensors and orientation matrix for perspective calculations
  */
 
--(void)configureSensors{
+- (void) configureSensors {
     _buttonPress = NO;
     
-    _motionManager = [[CMMotionManager alloc]init];
+    _motionManager = [[CMMotionManager alloc] init];
     _motionManager.deviceMotionUpdateInterval = kMotionUpdateInterval;
+	_motionManager.showsDeviceMovementDisplay = YES;
 	
     if(_motionManager.deviceMotionAvailable){ //sensor data available, they can use this feature (and app)
         [self addObserver:self forKeyPath:@"motionData" options:0 context:nil];
@@ -119,7 +120,7 @@ static SQUCardboardKit *sharedInstance = nil;
 	_cameraAngle = SCNVector3Make(-M_PI_2, 0, 0);
 }
 
--(void) observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context{
+- (void) observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context{
     if([keyPath isEqualToString:@"magnetometerData"]){ //warning: occasionally button will trigger twice for one direction--be sure to cope with this otherwise shit will fly.
 		
         if(_magnetometerLastVal-_magnetometerData.magneticField.z >= kButtonTolerance && _magnetometerLastVal!=0){

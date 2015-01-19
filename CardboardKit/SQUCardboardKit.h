@@ -21,6 +21,7 @@
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 
+/// Euller's angles
 @property (nonatomic, readonly) SCNVector3 cameraAngle;
 
 + (instancetype) sharedInstance;
