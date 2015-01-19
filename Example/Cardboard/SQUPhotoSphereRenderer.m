@@ -2,8 +2,8 @@
 //  SQUPhotoSphereRenderer.m
 //  Cardboard
 //
-//  Created by Tristan Seifert on 1/17/15.
-//  Copyright (c) 2015 Tristan Seifert. All rights reserved.
+//  Created by Tristan Seifert and Jake Glass on 1/17/15.
+//  Copyright (c) 2015 Squee! Application Development. All rights reserved.
 //
 
 #import "SQUPhotoSphereRenderer.h"
@@ -31,7 +31,7 @@
 	
 	[scene.rootNode addChildNode:node];
 	
-	// loaden pls
+	// load in flat photosphere images
 	NSString *file = [[NSBundle mainBundle] pathForResource:@"PhotoSpheres" ofType:@"plist"];
 	_photos = [NSArray arrayWithContentsOfFile:file];
 	
@@ -39,7 +39,7 @@
 	_currentSphere = (NSUInteger) -1;
 	[self nextPhotoSphere];
 	
-	// register for notification
+	// register for notification for Cardboard button press interface
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buttonPressed:) name:kSQUCardboardKitButtonPressedNotification object:nil];
 }
 
@@ -65,7 +65,7 @@
 }
 
 /**
- * Notification for BUTTon
+ * Notification for Cardboard's magnetic button
  */
 - (void) buttonPressed:(NSNotification *) n {
 	[self nextPhotoSphere];

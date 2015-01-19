@@ -2,8 +2,10 @@
 //  SQUGLController.m
 //  Cardboard
 //
-//  Created by Tristan Seifert on 1/17/15.
-//  Copyright (c) 2015 Tristan Seifert. All rights reserved.
+//  Main view controller and centre of SceneKit configuration
+//
+//  Created by Tristan Seifert and Jake Glass on 1/17/15.
+//  Copyright (c) 2015 Squee! Application Development. All rights reserved.
 //
 
 #import "SQUCameraCapturer.h"
